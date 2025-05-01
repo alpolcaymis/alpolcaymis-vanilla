@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alpolcaymis.com/sitemap.xml
+Sitemap: https://promilhesapla.com/sitemap.xml

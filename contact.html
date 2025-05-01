@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İletişim | Alp Olcay Mis</title>
+  <meta name="description" content="Alp Olcay Mis ile iletişime geçin. Öneri, geri bildirim veya sorularınız için formu kullanabilirsiniz.">
+  <meta name="robots" content="index, follow" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>İletişim</h1>
+    <p>Görüş, öneri ya da sorularınızı benimle paylaşmak isterseniz aşağıdaki formu doldurabilirsiniz.</p>
+
+    <form action="mailto:alpmis99@gmail.com" method="post" enctype="text/plain">
+      <label for="ad">Adınız:</label>
+      <input type="text" id="ad" name="Ad" required>
+
+      <label for="email">E-posta:</label>
+      <input type="email" id="email" name="Eposta" required>
+
+      <label for="mesaj">Mesajınız:</label>
+      <textarea id="mesaj" name="Mesaj" rows="6" required></textarea>
+
+      <button type="submit">Gönder</button>
+    </form>
+
+    <p style="margin-top: 30px;"><a href="index.html">← Anasayfaya dön</a></p>
+  </div>
+</body>
+</html>
