@@ -32,109 +32,73 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <nav class="navbar">
       <div class="nav-wrapper">
-        <a href="index.html" class="logo">PromilHesapla</a>
-        <ul class="nav-links">
-          <li><a href="index.html">Anasayfa</a></li>
-          <li><a href="blog/index.html">Blog</a></li>
-          <li><a href="contact.html">İletişim</a></li>
-        </ul>
+        <img
+          src="img/geyik-logo.png"
+          alt="Promil Hesapla Logo"
+          class="nav-logo"
+        />
       </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Anasayfa</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="contact.html">İletişim</a></li>
+      </ul>
     </nav>
 
     <div class="container">
       <h1>Alkol Promil Hesaplama</h1>
 
       <form id="promilForm">
-        <label for="kilo">Kilo (kg):</label>
-        <input type="number" id="kilo" required />
-
-        <label for="boy">Boy (cm):</label>
-        <input type="number" id="boy" required />
-
-        <label for="cinsiyet">Cinsiyet:</label>
-        <div id="cinsiyetSecimi" class="gender-buttons">
-          <button type="button" data-cinsiyet="erkek" class="gender-button">
-            👨 Erkek
-          </button>
-          <button type="button" data-cinsiyet="kadin" class="gender-button">
-            👩 Kadın
-          </button>
-        </div>
-        <input type="hidden" id="cinsiyet" value="" required />
-
-        <label>İçkiler:</label>
-        <div id="ickilerAlani">
-          <div class="icki-grubu">
-            <!-- 1. KAT: Tür seçimi ve sil butonu -->
-            <div class="icki-ust">
-              <div class="icki-select-wrapper">
-                <select class="icki-turu">
-                  <option value="bira">Bira</option>
-                  <option value="sarap">Şarap</option>
-                  <option value="votka">Votka</option>
-                  <option value="viski">Viski</option>
-                  <option value="rakı">Rakı</option>
-                </select>
-              </div>
-              <button type="button" class="icki-sil">🗑️</button>
+        <!-- Fiziksel Özellikler -->
+        <fieldset>
+          <legend>Fiziksel Özellikleriniz</legend>
+          <div class="kilo-boy-grup">
+            <div>
+              <label for="kilo">Kilo (kg)</label>
+              <input type="number" id="kilo" placeholder="Örn: 70" required />
             </div>
-
-            <!-- 2. KAT: Görsel + Üst üste giriş alanları -->
-            <div class="icki-alt">
-              <img src="img/bira.png" alt="İçki" class="icki-icon" />
-              <div class="icki-input-kolon">
-                <label>Adet</label>
-                <div class="input-step">
-                  <button type="button" class="azalt">−</button>
-                  <input
-                    type="number"
-                    class="icki-adet"
-                    value="1"
-                    min="1"
-                    required
-                  />
-                  <button type="button" class="arttir">+</button>
-                </div>
-
-                <label>Hacim (ml)</label>
-                <div class="input-step">
-                  <button type="button" class="azalt">−</button>
-                  <input
-                    type="number"
-                    class="icki-hacim"
-                    value="500"
-                    required
-                  />
-                  <button type="button" class="arttir">+</button>
-                </div>
-
-                <label>Alkol %</label>
-                <div class="input-step">
-                  <button type="button" class="azalt">−</button>
-                  <input type="number" class="icki-alkol" value="5" required />
-                  <button type="button" class="arttir">+</button>
-                </div>
-              </div>
+            <div>
+              <label for="boy">Boy (cm)</label>
+              <input type="number" id="boy" placeholder="Örn: 175" required />
             </div>
           </div>
-        </div>
 
-        <button type="button" id="ickiEkleBtn">+ İçki Ekle</button>
+          <label for="cinsiyet">Cinsiyet:</label>
+          <div id="cinsiyetSecimi" class="gender-buttons">
+            <button type="button" data-cinsiyet="erkek" class="gender-button">
+              👨 Erkek
+            </button>
+            <button type="button" data-cinsiyet="kadin" class="gender-button">
+              👩 Kadın
+            </button>
+          </div>
+          <input type="hidden" id="cinsiyet" value="" required />
+        </fieldset>
 
-        <label for="saat">Alkol aldıktan sonra kaç saat geçti?</label>
-        <input type="number" id="saat" required />
+        <!-- İçkiler -->
+        <fieldset>
+          <legend>Alınan Alkolleri Giriniz</legend>
+          <div id="ickilerAlani">
+            <!-- JS ile dinamik alan -->
+          </div>
+          <button type="button" id="ickiEkleBtn">+ İçki Ekle</button>
+        </fieldset>
+
+        <!-- Süre -->
+        <fieldset>
+          <legend>Alkol Alımından Sonra Geçen Süre</legend>
+          <label for="saat">Kaç saat geçti?</label>
+          <input type="number" id="saat" placeholder="Örn: 2" required />
+        </fieldset>
 
         <button type="submit">Hesapla</button>
       </form>
 
-      <div style="text-align: right; margin-top: 10px">
-        <button id="themeToggle">🌙 Gece Modu</button>
-      </div>
-
-      <div id="sonuc" class="result-box"></div>
+      <div id="sonuc" class="result-box" style="display: none"></div>
 
       <div
         id="paylasKutu"
@@ -142,21 +106,6 @@
       >
         <button id="paylasBtn">Sonucumu Paylaş</button>
       </div>
-
-      <p style="text-align: center; margin-top: 40px">
-        📘 <a href="blog/promil-nedir.html">Promil nedir?</a> | 🕒
-        <a href="blog/alkol-vucuttan-ne-zamanda-atilir.html"
-          >Alkol ne zaman atılır?</a
-        >
-        | 🚗
-        <a href="blog/ehliyet-alkol-promil-siniri.html"
-          >Ehliyet promil sınırı</a
-        >
-        | 🍻 <a href="blog/sarhosluk-seviyeleri.html">Sarhoşluk seviyeleri</a> |
-        📊 <a href="blog/alkol-promil-tablosu.html">Promil tablosu</a> | 💡
-        <a href="blog/ayilmak-icin-ne-yapilir.html">Ayılmak için ne yapılır?</a>
-        | 🗂️ <a href="blog/index.html">Tüm yazılar</a>
-      </p>
 
       <section class="faq">
         <h2>Sıkça Sorulan Sorular</h2>
@@ -173,23 +122,22 @@
           <summary>Alkol vücuttan ne kadar sürede atılır?</summary>
           <p>
             Ortalama olarak, erkekler saatte 0.15 promil, kadınlar 0.10-0.12
-            promil alkol yakar. Bu süreye metabolizma, yaş ve içki türü de etki
-            eder.
+            promil alkol yakar.
           </p>
         </details>
 
         <details>
           <summary>Promil ne kadar olursa ceza alırım?</summary>
           <p>
-            Türkiye'de özel araç sürerken 0.50 promil üzeri ceza sebebidir.
-            Ticari araçlarda ise sınır 0.20 promildir.
+            Türkiye'de özel araçlarda 0.50 promil, ticari araçlarda 0.20 promil
+            sınırdır.
           </p>
         </details>
       </section>
 
       <p style="text-align: center; margin-top: 30px">
-        📩 Geri bildirim göndermek için
-        <a href="contact.html">İletişim sayfasına</a> uğrayabilirsiniz.
+        📩 Geri bildirim için <a href="contact.html">İletişim</a> sayfasına
+        uğrayabilirsiniz.
       </p>
     </div>
 

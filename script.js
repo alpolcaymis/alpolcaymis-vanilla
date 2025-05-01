@@ -18,16 +18,7 @@ genderButtons.forEach((btn) => {
   });
 });
 
-// Tema geçişi
-const toggleBtn = document.getElementById("themeToggle");
-toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  toggleBtn.textContent = document.body.classList.contains("dark")
-    ? "☀️ Gündüz Modu"
-    : "🌙 Gece Modu";
-});
-
-// Promil yorum ve renk
+// Promil yorum ve seviye sınıfı
 function promilYorum(promil) {
   if (promil < 0.3) return "Genel olarak güvendesiniz.";
   if (promil < 0.8) return "Hafif sarhoşluk, dikkat dağınıklığı başlayabilir.";
@@ -59,7 +50,6 @@ form.addEventListener("submit", function (e) {
   const cinsiyet = genderInput.value;
   const saat = parseFloat(document.getElementById("saat").value);
 
-  // Tüm içkilerden alkol gramı hesapla
   const ickiGruplari = document.querySelectorAll(".icki-grubu");
   let safAlkolGram = 0;
 
@@ -70,7 +60,7 @@ form.addEventListener("submit", function (e) {
     safAlkolGram += adet * hacim * oran * 0.8;
   });
 
-  // Nadler Equation ile kan hacmi (litre)
+  // Nadler Equation
   let kanHacmiLitre = 0;
   if (cinsiyet === "erkek") {
     kanHacmiLitre = 0.3669 * Math.pow(boyM, 3) + 0.03219 * kilo + 0.6041;
@@ -78,7 +68,6 @@ form.addEventListener("submit", function (e) {
     kanHacmiLitre = 0.3561 * Math.pow(boyM, 3) + 0.03308 * kilo + 0.1833;
   }
 
-  // Bilimsel promil hesabı
   const baslangicPromil = (safAlkolGram / (kanHacmiLitre * 1000)) * 100;
   const yakimOrani = cinsiyet === "erkek" ? 0.15 : 0.12;
   const kalanPromil = Math.max(baslangicPromil - saat * yakimOrani, 0).toFixed(
@@ -93,11 +82,12 @@ form.addEventListener("submit", function (e) {
       : `Promil seviyeniz sıfıra çok yakın, ayık durumdasınız.`;
 
   const sinif = promilSeviyeSinifi(kalanPromil);
-  sonucBox.className = `result-box ${sinif}`;
+  sonucBox.className = `result-box ${sinif} show`;
   sonucBox.innerHTML = `Başlangıç Promil: ${baslangicPromil.toFixed(2)} ‰<br>
      Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} ‰<br><br>
      <strong>Durum:</strong> ${yorum}<br><br>
      <strong>${ayilmaMesaji}</strong>`;
+  sonucBox.style.display = "block";
 
   document.getElementById("paylasKutu").style.display = "block";
   document.getElementById("paylasBtn").onclick = () => {
@@ -110,7 +100,7 @@ form.addEventListener("submit", function (e) {
   };
 });
 
-// İçki ekleme
+// === İçki Ekleme ===
 const ickiAlani = document.getElementById("ickilerAlani");
 const ickiEkleBtn = document.getElementById("ickiEkleBtn");
 
@@ -165,7 +155,7 @@ ickiEkleBtn.addEventListener("click", () => {
   sayacButonlariniAktiflestir();
 });
 
-// Sil butonları
+// === Silme Butonu ===
 function silmeButonlariniGuncelle() {
   const silBtns = document.querySelectorAll(".icki-sil");
   silBtns.forEach((btn) => {
@@ -177,20 +167,24 @@ function silmeButonlariniGuncelle() {
   }
 }
 
-// Görsel değişimi
+// === Resim Değiştirici ===
 function resimleriGuncelle() {
   const gruplar = document.querySelectorAll(".icki-grubu");
   gruplar.forEach((grup) => {
     const select = grup.querySelector(".icki-turu");
     const img = grup.querySelector(".icki-icon");
     select.addEventListener("change", () => {
-      img.src = `img/${select.value}.png`;
-      img.alt = select.value;
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = `img/${select.value}.png`;
+        img.alt = select.value;
+        img.style.opacity = 1;
+      }, 150);
     });
   });
 }
 
-// + / − butonları
+// === Sayacı Butonları Aktifleştir ===
 function sayacButonlariniAktiflestir() {
   document.querySelectorAll(".input-step").forEach((wrapper) => {
     const input = wrapper.querySelector("input");
@@ -209,7 +203,5 @@ function sayacButonlariniAktiflestir() {
   });
 }
 
-// İlk yüklemede çalıştır
-silmeButonlariniGuncelle();
-resimleriGuncelle();
-sayacButonlariniAktiflestir();
+// === Sayfa yüklendiğinde 1 içki kutusu otomatik gelsin ===
+ickiEkleBtn.click();
