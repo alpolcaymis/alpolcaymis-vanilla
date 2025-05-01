@@ -4,7 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alkol Promil Hesaplama | Alpolcaymış</title>
-  <meta name="description" content="Alkol aldıktan sonra yaklaşık promil seviyeni hesaplamak için hızlı ve ücretsiz online hesaplama aracı.">
+  <meta name="description" content="Alkol aldıktan sonra yaklaşık promil seviyeni hesaplamak için hızlı ve ücretsiz online hesaplama aracı. Erkek ve kadınlara özel hesaplama.">
+  <meta name="keywords" content="alkol, promil hesaplama, online alkolmetre, alkol testi, rakı bira votka promil hesabı">
+  <meta name="author" content="alpolcaymis.com">
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://alpolcaymis.com/" />
+  <meta property="og:title" content="Alkol Promil Hesaplama | Alpolcaymış" />
+  <meta property="og:description" content="Hızlı ve ücretsiz online promil hesaplama aracı. İçki türünü ve miktarını seçerek yaklaşık promil seviyeni öğren." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alpolcaymis.com/" />
+  <meta property="og:image" content="https://alpolcaymis.com/og-image.jpg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Alkol Promil Hesaplama",
+    "url": "https://alpolcaymis.com",
+    "description": "İçki türü ve miktarına göre alkol promilini hızlıca hesapla. Erkek ve kadınlara özel promil ölçer.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "alpolcaymis.com"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -22,24 +44,62 @@
       </select>
 
       <label for="icki">İçki Türü:</label>
-<select id="icki">
-  <option value="bira">Bira</option>
-  <option value="sarap">Şarap</option>
-  <option value="votka">Votka</option>
-  <option value="viski">Viski</option>
-  <option value="rakı">Rakı</option>
-</select>
-
+      <select id="icki">
+        <option value="bira">Bira</option>
+        <option value="sarap">Şarap</option>
+        <option value="votka">Votka</option>
+        <option value="viski">Viski</option>
+        <option value="rakı">Rakı</option>
+      </select>
 
       <label for="miktar">İçki Miktarı (ml):</label>
       <input type="number" id="miktar" required>
+
+      <label for="saat">Alkol aldıktan sonra kaç saat geçti?</label>
+      <input type="number" id="saat" required>
 
       <button type="submit">Hesapla</button>
     </form>
 
     <div id="sonuc"></div>
-  </div>
 
+    <div id="paylasKutu" style="display:none; margin-top: 20px; text-align: center;">
+      <button id="paylasBtn">Sonucumu Paylaş</button>
+    </div>
+
+    <section class="faq">
+      <h2>Sıkça Sorulan Sorular</h2>
+
+      <details>
+        <summary>Promil nedir?</summary>
+        <p>Promil, kandaki alkol oranını gösteren bir ölçü birimidir. 1 promil, 1 litre kanda 1 gram saf alkol bulunması anlamına gelir.</p>
+      </details>
+
+      <details>
+        <summary>Alkol vücuttan ne kadar sürede atılır?</summary>
+        <p>Ortalama olarak, erkekler saatte 0.15 promil, kadınlar 0.10-0.12 promil alkol yakar. Bu süreye metabolizma, yaş ve içki türü de etki eder.</p>
+      </details>
+
+      <details>
+        <summary>Promil ne kadar olursa ceza alırım?</summary>
+        <p>Türkiye'de özel araç sürerken 0.50 promil üzeri ceza sebebidir. Ticari araçlarda ise sınır 0.20 promildir.</p>
+      </details>
+    </section>
+  </div>
+  <p style="text-align:center; margin-top: 40px;">
+    📘 Daha fazla bilgi için <a href="blog/promil-nedir.html">Promil Nedir?</a> başlıklı blog yazımızı okuyun.
+  </p>
+  <p style="text-align:center; margin-top: 30px;">
+    📘 Ayrıca bkz: <a href="blog/alkol-vucuttan-ne-zamanda-atilir.html">Alkol Vücuttan Ne Zaman Atılır?</a>
+  </p>
+  <p style="text-align:center; margin-top: 30px;">
+    📘 Ayrıca okuyun: <a href="blog/ehliyet-alkol-promil-siniri.html">Ehliyet İçin Alkol Promil Sınırı</a>
+  </p>
+  <p style="text-align:center; margin-top: 30px;">
+    📘 Promil seviyelerine göre <a href="blog/sarhosluk-seviyeleri.html">sarhoşluk derecelerini öğrenin</a>.
+  </p>
+  
+  
   <script src="script.js"></script>
 </body>
 </html>
