@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alkol Promil Hesaplama | Alpolcaymış</title>
+  <meta name="description" content="Alkol aldıktan sonra yaklaşık promil seviyeni hesaplamak için hızlı ve ücretsiz online hesaplama aracı.">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Alkol Promil Hesaplama</h1>
+
+    <form id="promilForm">
+      <label for="kilo">Kilo (kg):</label>
+      <input type="number" id="kilo" required>
+
+      <label for="cinsiyet">Cinsiyet:</label>
+      <select id="cinsiyet">
+        <option value="erkek">Erkek</option>
+        <option value="kadin">Kadın</option>
+      </select>
+
+      <label for="icki">İçki Türü:</label>
+<select id="icki">
+  <option value="bira">Bira</option>
+  <option value="sarap">Şarap</option>
+  <option value="votka">Votka</option>
+  <option value="viski">Viski</option>
+  <option value="rakı">Rakı</option>
+</select>
+
+
+      <label for="miktar">İçki Miktarı (ml):</label>
+      <input type="number" id="miktar" required>
+
+      <button type="submit">Hesapla</button>
+    </form>
+
+    <div id="sonuc"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
