@@ -68,43 +68,57 @@
         <label>İçkiler:</label>
         <div id="ickilerAlani">
           <div class="icki-grubu">
-            <img src="img/bira.png" alt="Bira" class="icki-icon" />
-
-            <div class="icki-alani">
-              <label>Tür</label>
-              <select class="icki-turu">
-                <option value="bira" selected>Bira</option>
-                <option value="sarap">Şarap</option>
-                <option value="votka">Votka</option>
-                <option value="viski">Viski</option>
-                <option value="rakı">Rakı</option>
-              </select>
+            <!-- 1. KAT: Tür seçimi ve sil butonu -->
+            <div class="icki-ust">
+              <div class="icki-select-wrapper">
+                <select class="icki-turu">
+                  <option value="bira">Bira</option>
+                  <option value="sarap">Şarap</option>
+                  <option value="votka">Votka</option>
+                  <option value="viski">Viski</option>
+                  <option value="rakı">Rakı</option>
+                </select>
+              </div>
+              <button type="button" class="icki-sil">🗑️</button>
             </div>
 
-            <div class="icki-alani">
-              <label>Adet</label>
-              <input
-                type="number"
-                class="icki-adet"
-                value="1"
-                min="1"
-                required
-              />
-            </div>
+            <!-- 2. KAT: Görsel + Üst üste giriş alanları -->
+            <div class="icki-alt">
+              <img src="img/bira.png" alt="İçki" class="icki-icon" />
+              <div class="icki-input-kolon">
+                <label>Adet</label>
+                <div class="input-step">
+                  <button type="button" class="azalt">−</button>
+                  <input
+                    type="number"
+                    class="icki-adet"
+                    value="1"
+                    min="1"
+                    required
+                  />
+                  <button type="button" class="arttir">+</button>
+                </div>
 
-            <div class="icki-alani">
-              <label>Hacim (ml)</label>
-              <input type="number" class="icki-hacim" value="500" required />
-            </div>
+                <label>Hacim (ml)</label>
+                <div class="input-step">
+                  <button type="button" class="azalt">−</button>
+                  <input
+                    type="number"
+                    class="icki-hacim"
+                    value="500"
+                    required
+                  />
+                  <button type="button" class="arttir">+</button>
+                </div>
 
-            <div class="icki-alani">
-              <label>Alkol %</label>
-              <input type="number" class="icki-alkol" value="5" required />
+                <label>Alkol %</label>
+                <div class="input-step">
+                  <button type="button" class="azalt">−</button>
+                  <input type="number" class="icki-alkol" value="5" required />
+                  <button type="button" class="arttir">+</button>
+                </div>
+              </div>
             </div>
-
-            <button type="button" class="icki-sil" style="display: none">
-              🗑️
-            </button>
           </div>
         </div>
 
