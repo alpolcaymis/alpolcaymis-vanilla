@@ -51,17 +51,42 @@ body {
   padding: 0;
 }
 
+
+
 .nav-links a {
-  font-family: 'Unna', serif;
-  font-weight: bold;
   text-decoration: none;
-  color: #dabf75;
-  font-size: 0.95rem;
+  color: #e0e0e0;
+  font-family: 'Unna', serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: #ffffff;
+  transform: scale(1.1);
+  color: #dabf75; /* Celtic altın tonu */
 }
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #dabf75;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
 
 /* === BAŞLIKLAR === */
 h1, legend {
@@ -536,4 +561,81 @@ textarea {
   border: 1px solid #526a6a;
   border-radius: 6px;
   resize: vertical;
+}
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.result-box.show {
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.icki-grubu {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlideIn 0.4s ease forwards;
+}
+@keyframes logoFadeZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.nav-logo {
+  width: 60px;
+  height: auto;
+  opacity: 0;
+  animation: logoFadeZoom 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+}
+.nav-logo-wrapper {
+  display: inline-block;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+  animation: glow-border 1.2s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes glow-border {
+  0% {
+    box-shadow: 0 0 0px rgba(218, 191, 117, 0);
+    opacity: 0;
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(218, 191, 117, 0.7);
+    opacity: 1;
+  }
+}
+.nav-logo-wrapper {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 50%;
+  position: relative;
+  overflow: visible; /* önemli! */
+  animation: glow-border 1.2s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.pop-out {
+  transform: translateY(-15%) scale(1.1);
+  z-index: 2;
+  position: relative;
+  transition: transform 0.4s ease;
 }

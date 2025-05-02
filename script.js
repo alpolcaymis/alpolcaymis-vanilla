@@ -1,3 +1,5 @@
+const sesHesapla = new Audio("sounds/calculate.mp3");
+
 const alkolOranlari = {
   bira: 0.05,
   sarap: 0.12,
@@ -26,6 +28,21 @@ const alkolHacimleri = {
   cin_tonic: 250,
   whisky_sour: 150,
   raki_double: 200,
+};
+
+const ickiAciklamalari = {
+  bira: "Standart şişe bira (~500ml, %5 alkol)",
+  sarap: "Bir kadeh şarap (~150ml, %12 alkol)",
+  votka: "50 ml shot, %40 alkol",
+  viski: "50 ml shot, %43 alkol",
+  rakı: "100 ml, %45 alkol",
+  raki_double: "Double rakı (~200ml, %45 alkol)",
+  cin: "50 ml shot, %40 alkol",
+  tekila: "50 ml shot, %38 alkol",
+  jager: "Jagermeister shot (~44 ml, %35 alkol)",
+  tekila_shot: "Tekila shot (~44 ml, %40 alkol)",
+  cin_tonic: "Karışım: 1/3 Cin, 2/3 Tonik (~250ml)",
+  whisky_sour: "Viski, limon, şeker şurubu karışımı (~150ml)",
 };
 
 // === Cinsiyet Seçimi ===
@@ -61,6 +78,8 @@ const sonucBox = document.getElementById("sonuc");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
+
+  sesHesapla.play().catch(() => {}); // 🔊 Ses efekti burada çalar
 
   if (!genderInput.value) {
     alert("Lütfen cinsiyet seçin.");
@@ -176,6 +195,11 @@ ickiEkleBtn.addEventListener("click", () => {
   `;
 
   ickiAlani.appendChild(yeniGrup);
+  setTimeout(() => {
+    yeniGrup.style.opacity = "1";
+    yeniGrup.style.transform = "translateY(0)";
+  }, 10);
+
   silmeButonlariniGuncelle();
   resimleriGuncelle();
   sayacButonlariniAktiflestir();
@@ -195,13 +219,17 @@ function resimleriGuncelle() {
       img.src = `img/${secilenTur}.png`;
       img.alt = secilenTur;
 
+      // Alkol oranı
       if (alkolOranlari[secilenTur] !== undefined) {
         alkolInput.value = (alkolOranlari[secilenTur] * 100).toFixed(1);
       }
 
+      // Hacim
       if (alkolHacimleri[secilenTur] !== undefined) {
         hacimInput.value = alkolHacimleri[secilenTur];
       }
+      // Açıklama tooltip
+      select.title = ickiAciklamalari[secilenTur] || "";
     });
   });
 }
