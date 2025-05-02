@@ -1,0 +1,33 @@
+.blog-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: 'Unna', serif;
+  }
+  
+  .blog-list li {
+    background-color: #2f3e3e;
+    padding: 14px 18px;
+    border-radius: 8px;
+    border-left: 4px solid #dabf75;
+  }
+  
+  .blog-list li a {
+    color: #dabf75;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: bold;
+  }
+  
+  .blog-list li a:hover {
+    text-decoration: underline;
+  }
+  
+  .blog-list li p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  

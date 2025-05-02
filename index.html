@@ -34,6 +34,7 @@
   </head>
 
   <body>
+    <!-- === NAVBAR === -->
     <nav class="navbar">
       <div class="nav-wrapper">
         <img
@@ -49,6 +50,7 @@
       </ul>
     </nav>
 
+    <!-- === ANA FORM === -->
     <div class="container">
       <h1>Alkol Promil Hesaplama</h1>
 
@@ -83,7 +85,7 @@
         <fieldset>
           <legend>Alınan Alkolleri Giriniz</legend>
           <div id="ickilerAlani">
-            <!-- JS ile dinamik alan -->
+            <!-- JS ile içki kutuları buraya eklenecek -->
           </div>
           <button type="button" id="ickiEkleBtn">+ İçki Ekle</button>
         </fieldset>
@@ -92,7 +94,13 @@
         <fieldset>
           <legend>Alkol Alımından Sonra Geçen Süre</legend>
           <label for="saat">Kaç saat geçti?</label>
-          <input type="number" id="saat" placeholder="Örn: 2" required />
+          <input
+            type="number"
+            id="saat"
+            value="0"
+            placeholder="Örn: 2"
+            required
+          />
         </fieldset>
 
         <button type="submit">Hesapla</button>
@@ -107,6 +115,7 @@
         <button id="paylasBtn">Sonucumu Paylaş</button>
       </div>
 
+      <!-- === SSS === -->
       <section class="faq">
         <h2>Sıkça Sorulan Sorular</h2>
 
@@ -122,15 +131,16 @@
           <summary>Alkol vücuttan ne kadar sürede atılır?</summary>
           <p>
             Ortalama olarak, erkekler saatte 0.15 promil, kadınlar 0.10-0.12
-            promil alkol yakar.
+            promil alkol yakar. Bu sürelere yaş, metabolizma ve içki türü de
+            etki eder.
           </p>
         </details>
 
         <details>
           <summary>Promil ne kadar olursa ceza alırım?</summary>
           <p>
-            Türkiye'de özel araçlarda 0.50 promil, ticari araçlarda 0.20 promil
-            sınırdır.
+            Türkiye'de özel araç kullanırken 0.50 promil, ticari araçlarda 0.20
+            promil üzeri ceza sebebidir.
           </p>
         </details>
       </section>
@@ -143,4 +153,13 @@
 
     <script src="script.js"></script>
   </body>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2025 PromilHesapla.com — Tüm hakları saklıdır.</p>
+      <ul class="footer-links">
+        <li><a href="contact.html">İletişim</a></li>
+        <li><a href="#">Gizlilik Politikası</a></li>
+      </ul>
+    </div>
+  </footer>
 </html>

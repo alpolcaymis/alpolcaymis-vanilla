@@ -4,6 +4,13 @@ const alkolOranlari = {
   votka: 0.4,
   viski: 0.43,
   rakı: 0.45,
+  cin: 0.4,
+  tekila: 0.38,
+  jager: 0.35,
+  tekila_shot: 0.4,
+  cin_tonic: 0.12,
+  whisky_sour: 0.15,
+  raki_double: 0.45,
 };
 
 // Cinsiyet seçimi
@@ -18,7 +25,7 @@ genderButtons.forEach((btn) => {
   });
 });
 
-// Promil yorum ve seviye sınıfı
+// Promil yorumu
 function promilYorum(promil) {
   if (promil < 0.3) return "Genel olarak güvendesiniz.";
   if (promil < 0.8) return "Hafif sarhoşluk, dikkat dağınıklığı başlayabilir.";
@@ -100,7 +107,7 @@ form.addEventListener("submit", function (e) {
   };
 });
 
-// === İçki Ekleme ===
+// === İçki Ekle ===
 const ickiAlani = document.getElementById("ickilerAlani");
 const ickiEkleBtn = document.getElementById("ickiEkleBtn");
 
@@ -108,15 +115,24 @@ ickiEkleBtn.addEventListener("click", () => {
   const yeniGrup = document.createElement("div");
   yeniGrup.classList.add("icki-grubu");
 
+  // içki seçenekleri
   yeniGrup.innerHTML = `
     <div class="icki-ust">
       <div class="icki-select-wrapper">
         <select class="icki-turu">
           <option value="bira">Bira</option>
           <option value="sarap">Şarap</option>
+          <option value="rakı">Rakı Tek</option>
+          <option value="raki_double">Rakı Double</option>
           <option value="votka">Votka</option>
-          <option value="viski">Viski</option>
-          <option value="rakı">Rakı</option>
+          <option value="viski">Viski</option>          
+          <option value="cin">Cin</option>
+          <option value="tekila">Tekila</option>
+          <option value="jager">Jagermeister Shot</option>
+          <option value="tekila_shot">Tekila Shot</option>
+          <option value="cin_tonic">Cin Tonic</option>
+          <option value="whisky_sour">Whisky Sour</option>
+          
         </select>
       </div>
       <button type="button" class="icki-sil">🗑️</button>
@@ -155,7 +171,7 @@ ickiEkleBtn.addEventListener("click", () => {
   sayacButonlariniAktiflestir();
 });
 
-// === Silme Butonu ===
+// === Silme Butonları ===
 function silmeButonlariniGuncelle() {
   const silBtns = document.querySelectorAll(".icki-sil");
   silBtns.forEach((btn) => {
@@ -167,24 +183,43 @@ function silmeButonlariniGuncelle() {
   }
 }
 
-// === Resim Değiştirici ===
+// === Resim Güncelle ===
+// function resimleriGuncelle() {
+//   const gruplar = document.querySelectorAll(".icki-grubu");
+//   gruplar.forEach((grup) => {
+//     const select = grup.querySelector(".icki-turu");
+//     const img = grup.querySelector(".icki-icon");
+//     select.addEventListener("change", () => {
+//       img.style.opacity = 0;
+//       setTimeout(() => {
+//         img.src = `img/${select.value}.png`;
+//         img.alt = select.value;
+//         img.style.opacity = 1;
+//       }, 150);
+//     });
+//   });
+// }
+
 function resimleriGuncelle() {
   const gruplar = document.querySelectorAll(".icki-grubu");
   gruplar.forEach((grup) => {
     const select = grup.querySelector(".icki-turu");
     const img = grup.querySelector(".icki-icon");
+    const alkolInput = grup.querySelector(".icki-alkol");
+
     select.addEventListener("change", () => {
-      img.style.opacity = 0;
-      setTimeout(() => {
-        img.src = `img/${select.value}.png`;
-        img.alt = select.value;
-        img.style.opacity = 1;
-      }, 150);
+      const secilenTur = select.value;
+      img.src = `img/${secilenTur}.png`;
+      img.alt = secilenTur;
+
+      if (alkolOranlari[secilenTur] !== undefined) {
+        alkolInput.value = (alkolOranlari[secilenTur] * 100).toFixed(1); // 0.4 → 40.0
+      }
     });
   });
 }
 
-// === Sayacı Butonları Aktifleştir ===
+// === Sayaç + / − Butonları ===
 function sayacButonlariniAktiflestir() {
   document.querySelectorAll(".input-step").forEach((wrapper) => {
     const input = wrapper.querySelector("input");
@@ -203,5 +238,5 @@ function sayacButonlariniAktiflestir() {
   });
 }
 
-// === Sayfa yüklendiğinde 1 içki kutusu otomatik gelsin ===
+// === Sayfa Yüklenince 1 içki kutusu otomatik eklensin ===
 ickiEkleBtn.click();
