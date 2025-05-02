@@ -1,5 +1,3 @@
-const sesHesapla = new Audio("sounds/calculate.mp3");
-
 const alkolOranlari = {
   bira: 0.05,
   sarap: 0.12,
@@ -15,37 +13,6 @@ const alkolOranlari = {
   raki_double: 0.45,
 };
 
-const alkolHacimleri = {
-  bira: 500,
-  sarap: 150,
-  votka: 50,
-  viski: 50,
-  rakı: 100,
-  cin: 50,
-  tekila: 50,
-  jager: 44,
-  tekila_shot: 44,
-  cin_tonic: 250,
-  whisky_sour: 150,
-  raki_double: 200,
-};
-
-const ickiAciklamalari = {
-  bira: "Standart şişe bira (~500ml, %5 alkol)",
-  sarap: "Bir kadeh şarap (~150ml, %12 alkol)",
-  votka: "50 ml shot, %40 alkol",
-  viski: "50 ml shot, %43 alkol",
-  rakı: "100 ml, %45 alkol",
-  raki_double: "Double rakı (~200ml, %45 alkol)",
-  cin: "50 ml shot, %40 alkol",
-  tekila: "50 ml shot, %38 alkol",
-  jager: "Jagermeister shot (~44 ml, %35 alkol)",
-  tekila_shot: "Tekila shot (~44 ml, %40 alkol)",
-  cin_tonic: "Karışım: 1/3 Cin, 2/3 Tonik (~250ml)",
-  whisky_sour: "Viski, limon, şeker şurubu karışımı (~150ml)",
-};
-
-// === Cinsiyet Seçimi ===
 const genderButtons = document.querySelectorAll(".gender-button");
 const genderInput = document.getElementById("cinsiyet");
 
@@ -57,7 +24,6 @@ genderButtons.forEach((btn) => {
   });
 });
 
-// === Promil Yorumu ===
 function promilYorum(promil) {
   if (promil < 0.3) return "Genel olarak güvendesiniz.";
   if (promil < 0.8) return "Hafif sarhoşluk, dikkat dağınıklığı başlayabilir.";
@@ -72,70 +38,91 @@ function promilSeviyeSinifi(promil) {
   return "result-danger";
 }
 
-// === Hesaplama ===
 const form = document.getElementById("promilForm");
 const sonucBox = document.getElementById("sonuc");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  sesHesapla.play().catch(() => {}); // 🔊 Ses efekti burada çalar
+  // Animasyonu başlat
+  document.getElementById("loadingOverlay").classList.add("show");
 
-  if (!genderInput.value) {
-    alert("Lütfen cinsiyet seçin.");
-    return;
-  }
+  // Animasyon süresi içinde hesaplamayı geciktir
+  setTimeout(() => {
+    document.getElementById("loadingOverlay").classList.remove("show");
 
-  const kilo = parseFloat(document.getElementById("kilo").value);
-  const boyCm = parseFloat(document.getElementById("boy").value);
-  const boyM = boyCm / 100;
-  const cinsiyet = genderInput.value;
-  const saat = parseFloat(document.getElementById("saat").value);
+    // Buradan sonrası hesaplama
+    if (!genderInput.value) {
+      alert("Lütfen cinsiyet seçin.");
+      return;
+    }
 
-  const ickiGruplari = document.querySelectorAll(".icki-grubu");
-  let safAlkolGram = 0;
+    const kilo = parseFloat(document.getElementById("kilo").value);
+    const boyCm = parseFloat(document.getElementById("boy").value);
+    const boyM = boyCm / 100;
+    const cinsiyet = genderInput.value;
+    const saat = parseFloat(document.getElementById("saat").value);
 
-  ickiGruplari.forEach((grup) => {
-    const adet = parseFloat(grup.querySelector(".icki-adet").value) || 0;
-    const hacim = parseFloat(grup.querySelector(".icki-hacim").value) || 0;
-    const oran = parseFloat(grup.querySelector(".icki-alkol").value) / 100 || 0;
-    safAlkolGram += adet * hacim * oran * 0.8;
-  });
+    const ickiGruplari = document.querySelectorAll(".icki-grubu");
+    let safAlkolGram = 0;
 
-  let kanHacmiLitre = 0;
-  if (cinsiyet === "erkek") {
-    kanHacmiLitre = 0.3669 * Math.pow(boyM, 3) + 0.03219 * kilo + 0.6041;
-  } else {
-    kanHacmiLitre = 0.3561 * Math.pow(boyM, 3) + 0.03308 * kilo + 0.1833;
-  }
+    ickiGruplari.forEach((grup) => {
+      const adet = parseFloat(grup.querySelector(".icki-adet").value) || 0;
+      const hacim = parseFloat(grup.querySelector(".icki-hacim").value) || 0;
+      const oran =
+        parseFloat(grup.querySelector(".icki-alkol").value) / 100 || 0;
+      safAlkolGram += adet * hacim * oran * 0.8;
+    });
 
-  const baslangicPromil = (safAlkolGram / (kanHacmiLitre * 1000)) * 100;
-  const yakimOrani = cinsiyet === "erkek" ? 0.15 : 0.12;
-  const kalanPromil = Math.max(baslangicPromil - saat * yakimOrani, 0).toFixed(
-    2
-  );
-  const yorum = promilYorum(kalanPromil);
-  const kalanSaat = kalanPromil > 0 ? (kalanPromil / yakimOrani).toFixed(1) : 0;
+    let kanHacmiLitre = 0;
+    if (cinsiyet === "erkek") {
+      kanHacmiLitre = 0.3669 * Math.pow(boyM, 3) + 0.03219 * kilo + 0.6041;
+    } else {
+      kanHacmiLitre = 0.3561 * Math.pow(boyM, 3) + 0.03308 * kilo + 0.1833;
+    }
 
-  const sinif = promilSeviyeSinifi(kalanPromil);
-  sonucBox.className = `result-box ${sinif} show`;
-  sonucBox.innerHTML = `Başlangıç Promil: ${baslangicPromil.toFixed(2)} ‰<br>
-     Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} ‰<br><br>
-     <strong>Durum:</strong> ${yorum}<br><br>
-     <strong>${(ayilmaMesaji =
-       kalanPromil > 0
-         ? `Tahmini olarak yaklaşık ${kalanSaat} saat sonra ayılmaya başlarsınız.`
-         : `Promil seviyeniz sıfıra çok yakın, ayık durumdasınız.`)}</strong>`;
+    const baslangicPromil = (safAlkolGram / (kanHacmiLitre * 1000)) * 100;
+    const yakimOrani = cinsiyet === "erkek" ? 0.15 : 0.12;
+    const kalanPromil = Math.max(
+      baslangicPromil - saat * yakimOrani,
+      0
+    ).toFixed(2);
+    const yorum = promilYorum(kalanPromil);
 
-  document.getElementById("paylasKutu").style.display = "block";
-  document.getElementById("paylasBtn").onclick = () => {
-    const text = `Benim tahmini promilim: ${kalanPromil} ‰ — ${yorum}`;
-    const url = "https://promilhesapla.com";
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      text
-    )}&url=${encodeURIComponent(url)}`;
-    window.open(tweetUrl, "_blank");
-  };
+    const kalanSaat =
+      kalanPromil > 0 ? (kalanPromil / yakimOrani).toFixed(1) : 0;
+    const ayilmaMesaji =
+      kalanPromil > 0
+        ? `Tahmini olarak yaklaşık ${kalanSaat} saat sonra ayılmaya başlarsınız.`
+        : `Promil seviyeniz sıfıra çok yakın, ayık durumdasınız.`;
+
+    const sinif = promilSeviyeSinifi(kalanPromil);
+    sonucBox.className = `result-box ${sinif} show`;
+    sonucBox.innerHTML = `
+  <div class="promil-wrapper">
+    <div class="promil-label">Promil</div>
+    <div class="promil-deger">${baslangicPromil.toFixed(2)}</div>
+  </div>
+  Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} ‰<br><br>
+  <strong>Durum:</strong> ${yorum}<br><br>
+  <strong>${ayilmaMesaji}</strong>
+`;
+
+    sonucBox.style.display = "block";
+
+    // Ekranı otomatik kaydır
+    document.getElementById("sonuc").scrollIntoView({ behavior: "smooth" });
+
+    document.getElementById("paylasKutu").style.display = "block";
+    document.getElementById("paylasBtn").onclick = () => {
+      const text = `Benim tahmini promilim: ${kalanPromil} ‰ — ${yorum}`;
+      const url = "https://promilhesapla.com";
+      const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        text
+      )}&url=${encodeURIComponent(url)}`;
+      window.open(tweetUrl, "_blank");
+    };
+  }, 1200); // 1200ms bekletiyoruz
 });
 
 // === İçki Ekle ===
@@ -155,7 +142,7 @@ ickiEkleBtn.addEventListener("click", () => {
           <option value="rakı">Rakı Tek</option>
           <option value="raki_double">Rakı Double</option>
           <option value="votka">Votka</option>
-          <option value="viski">Viski</option>
+          <option value="viski">Viski</option>          
           <option value="cin">Cin</option>
           <option value="tekila">Tekila</option>
           <option value="jager">Jagermeister Shot</option>
@@ -195,46 +182,48 @@ ickiEkleBtn.addEventListener("click", () => {
   `;
 
   ickiAlani.appendChild(yeniGrup);
-  setTimeout(() => {
-    yeniGrup.style.opacity = "1";
-    yeniGrup.style.transform = "translateY(0)";
-  }, 10);
 
-  silmeButonlariniGuncelle();
-  resimleriGuncelle();
-  sayacButonlariniAktiflestir();
+  // Gecikmeli fonksiyon bağlama (önemli)
+  setTimeout(() => {
+    silmeButonlariniGuncelle();
+    resimleriGuncelle();
+    sayacButonlariniAktiflestir();
+  }, 0);
 });
 
-// === Resim ve Oran Güncelle ===
+// === Sil Butonları ===
+function silmeButonlariniGuncelle() {
+  const silBtns = document.querySelectorAll(".icki-sil");
+  silBtns.forEach((btn) => {
+    btn.style.display = "inline-block";
+    btn.onclick = () => btn.parentElement.parentElement.remove();
+  });
+  if (silBtns.length === 1) {
+    silBtns[0].style.display = "none";
+  }
+}
+
+// === Resim ve Oran Güncelleme ===
 function resimleriGuncelle() {
   const gruplar = document.querySelectorAll(".icki-grubu");
   gruplar.forEach((grup) => {
     const select = grup.querySelector(".icki-turu");
     const img = grup.querySelector(".icki-icon");
     const alkolInput = grup.querySelector(".icki-alkol");
-    const hacimInput = grup.querySelector(".icki-hacim");
 
     select.addEventListener("change", () => {
       const secilenTur = select.value;
       img.src = `img/${secilenTur}.png`;
       img.alt = secilenTur;
 
-      // Alkol oranı
       if (alkolOranlari[secilenTur] !== undefined) {
         alkolInput.value = (alkolOranlari[secilenTur] * 100).toFixed(1);
       }
-
-      // Hacim
-      if (alkolHacimleri[secilenTur] !== undefined) {
-        hacimInput.value = alkolHacimleri[secilenTur];
-      }
-      // Açıklama tooltip
-      select.title = ickiAciklamalari[secilenTur] || "";
     });
   });
 }
 
-// === Sayac Butonları Aktifleştir ===
+// === Sayaç + / − ===
 function sayacButonlariniAktiflestir() {
   document.querySelectorAll(".input-step").forEach((wrapper) => {
     const input = wrapper.querySelector("input");
@@ -243,15 +232,25 @@ function sayacButonlariniAktiflestir() {
 
     azaltBtn.onclick = () => {
       let val = parseFloat(input.value) || 0;
-      input.value = Math.max(val - 1, input.min ? parseFloat(input.min) : 0);
+      let step = 1;
+
+      if (input.classList.contains("icki-hacim")) step = 10;
+      if (input.classList.contains("icki-alkol")) step = 2.5;
+
+      input.value = Math.max(val - step, input.min ? parseFloat(input.min) : 0);
     };
 
     arttirBtn.onclick = () => {
       let val = parseFloat(input.value) || 0;
-      input.value = val + 1;
+      let step = 1;
+
+      if (input.classList.contains("icki-hacim")) step = 10;
+      if (input.classList.contains("icki-alkol")) step = 2.5;
+
+      input.value = val + step;
     };
   });
 }
 
-// === Sayfa Yüklenince Otomatik 1 içki eklensin ===
+// === Sayfa yüklenince 1 içki kutusu gelsin ===
 ickiEkleBtn.click();
