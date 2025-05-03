@@ -404,7 +404,7 @@ label[for="saat"] {
 
 /* === SONUÇ KUTUSU TEMEL === */
 .result-box {
-  padding: 20px;
+  padding: 16px;
   border-radius: 10px;
   margin-top: 20px;
   font-family: 'Unna', serif;
@@ -531,7 +531,7 @@ label[for="saat"] {
 .ek-veriler-satir {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   font-size: 0.8rem;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -541,7 +541,7 @@ label[for="saat"] {
 
 .ek-veriler-satir span {
   background-color: #2f3e3e;
-  padding: 6px 10px;
+  padding: 6px 6px;
   border-radius: 6px;
   border: 1px solid #4b5c5c;
 }
@@ -554,6 +554,51 @@ label[for="saat"] {
   font-style: italic;
   text-align: center;
 }
+
+
+/* === Promil Hesapla BUTONU === */
+button[type="submit"] {
+  font-family: 'Unna', serif;
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #1a1a1a;
+  background: linear-gradient(
+    135deg,
+    #e4cc8d 0%,
+    #dabf75 40%,
+    #fff4c2 50%,
+    #dabf75 60%,
+    #e4cc8d 100%
+  );
+  background-size: 400% 400%;
+  animation: shimmer-diagonal 4s infinite linear;
+
+  padding: 12px 24px;
+  border: 2px solid #a88b3d;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 220px;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.2s ease;
+  position: relative;
+
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes shimmer-diagonal {
+  0% {
+    background-position: -200% -200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
 
 
 /* === PAYLAŞ BUTONU === */
