@@ -1,3 +1,8 @@
+const ortalamalar = {
+  erkek: { kilo: 78, boy: 175 },
+  kadın: { kilo: 65, boy: 162 },
+};
+
 const alkolOranlari = {
   bira: 0.05,
   sarap: 0.12,
@@ -13,9 +18,19 @@ const alkolOranlari = {
   raki_double: 0.45,
 };
 
-const ortalamalar = {
-  erkek: { kilo: 78, boy: 175 },
-  kadın: { kilo: 65, boy: 162 },
+const varsayilanHacimler = {
+  bira: 500,
+  sarap: 150,
+  rakı: 40,
+  raki_double: 80,
+  votka: 40,
+  viski: 50,
+  cin: 40,
+  tekila: 40,
+  jager: 40,
+  tekila_shot: 40,
+  cin_tonic: 40,
+  whisky_sour: 120,
 };
 
 // Cinsiyet seçimi
@@ -151,6 +166,7 @@ ickiEkleBtn.addEventListener("click", () => {
   yeniGrup.innerHTML = `
     <div class="icki-ust">
       <div class="icki-select-wrapper">
+      <label for="ickiSecimi">Alkol Türü:</label>
         <select class="icki-turu">
           <option value="bira">Bira</option>
           <option value="sarap">Şarap</option>
@@ -165,6 +181,14 @@ ickiEkleBtn.addEventListener("click", () => {
           <option value="cin_tonic">Cin Tonic</option>
           <option value="whisky_sour">Whisky Sour</option>
         </select>
+         <div class="custom-arrow">
+    <!-- SVG kodu buraya gelecek -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="#dabf75" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M6 9l6 6 6-6"/>
+    </svg>
+    
+
+  </div>
       </div>
       <button type="button" class="icki-sil">🗑️</button>
     </div>
@@ -186,7 +210,7 @@ ickiEkleBtn.addEventListener("click", () => {
           <button type="button" class="arttir">+</button>
         </div>
 
-        <label>Alkol %</label>
+        <label>Alkol Oranı % </label>
         <div class="input-step">
           <button type="button" class="azalt">−</button>
           <input type="number" class="icki-alkol" value="5" required />
@@ -218,13 +242,13 @@ function silmeButonlariniGuncelle() {
   }
 }
 
-// === Resim ve Oran Güncelleme ===
 function resimleriGuncelle() {
   const gruplar = document.querySelectorAll(".icki-grubu");
   gruplar.forEach((grup) => {
     const select = grup.querySelector(".icki-turu");
     const img = grup.querySelector(".icki-icon");
     const alkolInput = grup.querySelector(".icki-alkol");
+    const hacimInput = grup.querySelector(".icki-hacim");
 
     select.addEventListener("change", () => {
       const secilenTur = select.value;
@@ -233,6 +257,10 @@ function resimleriGuncelle() {
 
       if (alkolOranlari[secilenTur] !== undefined) {
         alkolInput.value = (alkolOranlari[secilenTur] * 100).toFixed(1);
+      }
+
+      if (varsayilanHacimler[secilenTur] !== undefined) {
+        hacimInput.value = varsayilanHacimler[secilenTur];
       }
     });
   });

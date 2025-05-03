@@ -122,7 +122,6 @@ h1 {
 legend {
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 10px;
   display: block;
 }
 
@@ -162,11 +161,17 @@ textarea {
   width: 100%;
 }
 
+input {
+  padding: 1px 1px; /* üst-alt: 1px, sağ-sol: 10px */
+}
+
 /* === KİLO & BOY === */
+
 .kilo-boy-grup {
   display: flex;
   gap: 12px;
-  margin-top: 10px;
+  margin-top: 0;
+  margin-bottom: 16px; /* alt boşluk eklendi */
   flex-wrap: nowrap;
 }
 
@@ -258,8 +263,8 @@ button.icki-sil:hover {
 
 /* === İÇKİ BLOĞU === */
 .icki-grubu {
-  margin-top: 16px;
-  padding: 10px;
+  margin-top: 8px;
+  padding: 2px 8px;
   border-radius: 10px;
   background-color: transparent;
   display: flex;
@@ -273,29 +278,49 @@ button.icki-sil:hover {
   gap: 10px;
 }
 
+/* === İÇKİ SELECT STİLİ === */
 .icki-select-wrapper {
-  flex: 1;
   position: relative;
+  display: inline-block;
+  width: 100%;
 }
 
-.icki-turu {
-  text-align: left;
+.icki-select-wrapper label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #c9c9b2;
+  display: block;
+  margin-bottom: 4px;
+  font-family: 'Unna', serif;
+}
+
+.icki-select-wrapper select.icki-turu {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   background-color: #2f3e3e;
   color: #e8e8dc;
   font-weight: bold;
   font-family: 'Unna', serif;
+  padding: 10px;
+  padding-right: 32px; /* sağdaki ok için boşluk */
+  border: 1px solid #526a6a;
+  border-radius: 6px;
+  text-align: left;
 }
 
-.icki-select-wrapper::after {
-  content: '▼';
+.custom-arrow {
   position: absolute;
   top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  font-size: 14px;
+  right: 24px;
   pointer-events: none;
+  transform: translateY(-50%);
   color: #dabf75;
+  width: 16px;
+  height: 16px;
 }
+
 
 .icki-alt {
   display: flex;
@@ -319,17 +344,20 @@ button.icki-sil:hover {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   margin-left: auto;
+}
+.icki-input-kolon label {
+  margin-top: 4px;
+  margin-bottom: 0;
 }
 
 /* === CİNSİYET === */
 .gender-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 0; /* üst boşluk sıfırlandı */
 }
-
 .gender-button {
   flex: 1;
   padding: 12px;
@@ -339,6 +367,7 @@ button.icki-sil:hover {
   background: #2f3e3e;
   color: #e8e8dc;
   cursor: pointer;
+  margin: 0 !important; /* Kenar boşluklarını tamamen kaldırır */
   font-weight: bold;
   font-family: 'Unna', serif;
 }
@@ -347,6 +376,21 @@ button.icki-sil:hover {
   background-color: #8c4a2f;
   border-color: #8c4a2f;
   color: #fff;
+}
+
+/* === saat === */
+
+#saat {
+  max-width: 240px;
+  margin: 0 auto;
+  display: block;
+  padding: 5px 10px !important;
+}
+label[for="saat"] {
+  display: block;
+  text-align: center;
+  margin-bottom: 4px;
+  font-weight: bold;
 }
 
 /* === SONUÇ KUTUSU === */
@@ -432,7 +476,7 @@ button.icki-sil:hover {
 /* === MOBİL === */
 @media (max-width: 600px) {
   .container {
-    padding: 20px;
+    padding: 16px;
     margin: 0;
   }
 
@@ -454,7 +498,7 @@ button.icki-sil:hover {
   }
 
   .icki-input-kolon input {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
   }
 
   table {
