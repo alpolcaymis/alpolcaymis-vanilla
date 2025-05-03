@@ -14,7 +14,7 @@ const alkolOranlari = {
   jager: 0.35,
   tekila_shot: 0.4,
   cin_tonic: 0.12,
-  whisky_sour: 0.15,
+  whisky_sour: 0.43,
   raki_double: 0.45,
 };
 
@@ -55,16 +55,14 @@ genderButtons.forEach((btn) => {
 });
 
 function promilYorum(promil) {
-  if (promil < 0.3) return "Genel olarak güvendesiniz.";
-  if (promil < 0.8) return "Hafif sarhoşluk, dikkat dağınıklığı başlayabilir.";
-  if (promil < 1.5) return "Denge bozukluğu ve refleks kaybı yaşanabilir.";
-  if (promil < 2.5) return "Ciddi sarhoşluk, yasal sınırların üzerindesiniz.";
-  return "Zehirlenme riski var, tıbbi yardım gerekebilir!";
+  if (promil <= 0.5) return "Yasal sınırın altındasınız. Ceza almazsınız.";
+  if (promil < 1.0) return "Yasal sınırı aştınız. Ehliyetinize el konulabilir.";
+  return "Çok yüksek promil! Ceza ve ehliyete el koyma dışında adli işlem riski var.";
 }
 
 function promilSeviyeSinifi(promil) {
-  if (promil < 0.3) return "result-safe";
-  if (promil < 0.8) return "result-warning";
+  if (promil <= 0.5) return "result-safe";
+  if (promil < 1.0) return "result-warning";
   return "result-danger";
 }
 
@@ -101,7 +99,7 @@ form.addEventListener("submit", function (e) {
       const hacim = parseFloat(grup.querySelector(".icki-hacim").value) || 0;
       const oran =
         parseFloat(grup.querySelector(".icki-alkol").value) / 100 || 0;
-      safAlkolGram += adet * hacim * oran * 0.8;
+      safAlkolGram += adet * hacim * oran * 0.789;
     });
 
     let kanHacmiLitre = 0;
@@ -129,9 +127,21 @@ form.addEventListener("submit", function (e) {
     const sinif = promilSeviyeSinifi(kalanPromil);
     sonucBox.className = `result-box ${sinif} show`;
     sonucBox.innerHTML = `
+    
   <div class="promil-wrapper">
     <div class="promil-label">Promil</div>
     <div class="promil-deger">${baslangicPromil.toFixed(2)}</div>
+  </div>
+
+<p class="result-note">
+  * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta sürücüleri için yasal sınır <strong>0.00‰</strong>’dir.
+</p>
+
+  <div class="ek-veriler-satir">
+  <span><strong>Kan Hacminiz (mL):</strong> ${(kanHacmiLitre * 1000).toFixed(
+    0
+  )}</span>
+  <span><strong>Alınan Alkol (g):</strong> ${safAlkolGram.toFixed(1)}</span>
   </div>
   Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} ‰<br><br>
   <strong>Durum:</strong> ${yorum}<br><br>
