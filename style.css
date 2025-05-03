@@ -12,9 +12,17 @@ textarea {
 body {
   font-family: 'Unna', serif;
   background-color: #191f1f;
+  color: #e8e8dc;
   margin: 0;
   padding: 20px;
-  color: #e8e8dc;
+  box-sizing: border-box;
+  border: 6px solid #3a4d4d;
+  border-radius: 12px;
+  box-shadow: 0 0 0 8px #3a4d4d;
+  background-image: url('img/celtic-frame.png');
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 120px;
 }
 
 .container {
@@ -23,7 +31,9 @@ body {
   background: linear-gradient(to bottom, #253c3c, #1d4949);
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 6px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 /* === NAVBAR === */
@@ -35,11 +45,26 @@ body {
   margin-bottom: 10px;
 }
 
+.nav-logo-wrapper {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 50%;
+  position: relative;
+  overflow: visible;
+  animation: glow-border 1.2s ease-out forwards;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
 .nav-logo {
-  width: 10rem;
+  width: 60px;
   height: auto;
   object-fit: contain;
+  opacity: 0;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  animation: logoFadeZoom 0.8s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
 .nav-links {
@@ -51,9 +76,8 @@ body {
   padding: 0;
 }
 
-
-
 .nav-links a {
+  position: relative;
   text-decoration: none;
   color: #e0e0e0;
   font-family: 'Unna', serif;
@@ -65,11 +89,7 @@ body {
 
 .nav-links a:hover {
   transform: scale(1.1);
-  color: #dabf75; /* Celtic altın tonu */
-}
-
-.nav-links a {
-  position: relative;
+  color: #dabf75;
 }
 
 .nav-links a::after {
@@ -86,10 +106,9 @@ body {
 .nav-links a:hover::after {
   width: 100%;
 }
-
-
 /* === BAŞLIKLAR === */
-h1, legend {
+h1,
+legend {
   font-family: 'Cormorant Garamond', serif;
   color: #dabf75;
   text-align: center;
@@ -127,7 +146,7 @@ label {
   display: block;
 }
 
-/* === INPUT & SELECT === */
+/* === INPUT, SELECT, TEXTAREA === */
 input,
 select,
 textarea {
@@ -179,21 +198,21 @@ button:hover {
 
 button.icki-sil {
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
   width: 36px;
   height: 36px;
   font-size: 16px;
   background: #8c4a2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button.icki-sil:hover {
   background: #a85d3a;
 }
 
-/* === + / − === */
+/* === + / − BUTONLARI === */
 .input-step {
   display: flex;
   align-items: center;
@@ -203,8 +222,8 @@ button.icki-sil:hover {
 }
 
 .input-step input {
-  border: none;
   width: 60px;
+  border: none;
   font-size: 1rem;
   text-align: center;
   padding: 0;
@@ -217,7 +236,6 @@ button.icki-sil:hover {
   background: #3b4949;
   border: none;
   padding: 0;
-  margin: 0;
   width: 30px;
   height: 20px;
   font-size: 16px;
@@ -315,7 +333,6 @@ button.icki-sil:hover {
   background: #2f3e3e;
   color: #e8e8dc;
   cursor: pointer;
-  margin: 0;
   font-weight: bold;
   font-family: 'Unna', serif;
 }
@@ -326,7 +343,7 @@ button.icki-sil:hover {
   color: #fff;
 }
 
-/* === SONUÇ === */
+/* === SONUÇ KUTUSU === */
 .result-box {
   padding: 20px;
   border-radius: 10px;
@@ -390,8 +407,7 @@ button.icki-sil:hover {
   line-height: 1;
 }
 
-
-/* === PAYLAŞ === */
+/* === PAYLAŞ BUTONU === */
 #paylasBtn {
   margin-top: 15px;
   padding: 10px 16px;
@@ -407,7 +423,6 @@ button.icki-sil:hover {
 #paylasBtn:hover {
   background-color: #e4cc8d;
 }
-
 /* === MOBİL === */
 @media (max-width: 600px) {
   .container {
@@ -435,7 +450,14 @@ button.icki-sil:hover {
   .icki-input-kolon input {
     font-size: 0.95rem;
   }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
+
 /* === TABLO TEMASI === */
 table {
   width: 100%;
@@ -475,14 +497,6 @@ tr:hover {
   background-color: #344b4b;
 }
 
-/* Küçük ekranlar için scroll */
-@media (max-width: 600px) {
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-}
 /* === LİNK TASARIMI === */
 a {
   color: #dabf75;
@@ -532,52 +546,8 @@ a:hover {
 .footer-links a:hover {
   color: #fff0c2;
 }
-body {
-  font-family: 'Unna', serif;
-  background-color: #191f1f;
-  padding: 10px;
-  margin: 0;
-  color: #e8e8dc;
-  box-sizing: border-box;
-  border: 6px solid #3a4d4d; /* çerçeve */
-  border-radius: 12px;
-}
-body {
-  box-shadow: 0 0 0 8px #3a4d4d;
-  border-radius: 12px;
-}
-body {
-  font-family: 'Unna', serif;
-  background-color: #191f1f;
-  color: #e8e8dc;
-  padding: 20px;
-  margin: 0;
-  box-sizing: border-box;
-  border-radius: 12px;
 
-  background-image: url('img/celtic-border.svg');
-  background-repeat: repeat;
-  background-position: center;
-  background-size: 12px;
-}
-body {
-  font-family: 'Unna', serif;
-  background-color: #191f1f;
-  color: #e8e8dc;
-  padding: 20px;
-  margin: 0;
-  box-sizing: border-box;
-  border-radius: 12px;
-
-  background-image: url('img/celtic-frame.png');
-  background-repeat: repeat;
-  background-position: center;
-  background-size: 120px;
-}
-.container {
-  /* mevcut özelliklere ek olarak */
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
-}
+/* === TEXTAREA === */
 textarea {
   font-family: 'Unna', serif;
   font-size: 1rem;
@@ -588,6 +558,8 @@ textarea {
   border-radius: 6px;
   resize: vertical;
 }
+
+/* === ANİMASYONLAR === */
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
@@ -608,6 +580,7 @@ textarea {
   transform: translateY(10px);
   animation: fadeSlideIn 0.4s ease forwards;
 }
+
 @keyframes logoFadeZoom {
   0% {
     opacity: 0;
@@ -617,24 +590,6 @@ textarea {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-}
-
-.nav-logo {
-  width: 60px;
-  height: auto;
-  opacity: 0;
-  animation: logoFadeZoom 0.8s ease-out forwards;
-  animation-delay: 0.3s;
-}
-.nav-logo-wrapper {
-  display: inline-block;
-  padding: 6px;
-  border-radius: 50%;
-  position: relative;
-  animation: glow-border 1.2s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.3s;
-  animation-fill-mode: forwards;
 }
 
 @keyframes glow-border {
@@ -647,16 +602,20 @@ textarea {
     opacity: 1;
   }
 }
-.nav-logo-wrapper {
-  display: inline-block;
-  padding: 8px;
-  border-radius: 50%;
-  position: relative;
-  overflow: visible; /* önemli! */
-  animation: glow-border 1.2s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.3s;
-  animation-fill-mode: forwards;
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
 }
 
 .pop-out {
@@ -665,6 +624,8 @@ textarea {
   position: relative;
   transition: transform 0.4s ease;
 }
+
+/* === YÜKLEME OVERLAY === */
 #loadingOverlay {
   position: fixed;
   top: 0;
@@ -691,19 +652,3 @@ textarea {
   height: auto;
   animation: pulse 1.2s ease-in-out infinite;
 }
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-}
-
