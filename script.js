@@ -13,14 +13,39 @@ const alkolOranlari = {
   raki_double: 0.45,
 };
 
+const ortalamalar = {
+  erkek: { kilo: 78, boy: 175 },
+  kadın: { kilo: 65, boy: 162 },
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  genderButtons.forEach((btn) => {
+    if (btn.dataset.cinsiyet === "erkek") {
+      btn.classList.add("selected");
+      genderInput.value = "erkek";
+    }
+  });
+  kiloInput.value = ortalamalar["erkek"].kilo;
+  boyInput.value = ortalamalar["erkek"].boy;
+
+  sayacButonlariniAktiflestir(); // input-step butonlarını etkinleştir
+});
+
 const genderButtons = document.querySelectorAll(".gender-button");
 const genderInput = document.getElementById("cinsiyet");
+const kiloInput = document.getElementById("kilo");
+const boyInput = document.getElementById("boy");
 
 genderButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     genderButtons.forEach((b) => b.classList.remove("selected"));
     btn.classList.add("selected");
-    genderInput.value = btn.dataset.cinsiyet;
+    const secilen = btn.dataset.cinsiyet;
+    genderInput.value = secilen;
+
+    // Ortalama değerleri ata
+    kiloInput.value = ortalamalar[secilen].kilo;
+    boyInput.value = ortalamalar[secilen].boy;
   });
 });
 

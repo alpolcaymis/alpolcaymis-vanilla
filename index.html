@@ -62,12 +62,20 @@
           <legend>Fiziksel Özellikleriniz</legend>
           <div class="kilo-boy-grup">
             <div>
-              <label for="kilo">Kilo (kg)</label>
-              <input type="number" id="kilo" placeholder="Örn: 70" required />
+              <label for="kilo">Kilonuz (kg)</label>
+              <div class="input-step">
+                <button type="button" class="azalt">−</button>
+                <input type="number" id="kilo" value="78" min="30" max="200" />
+                <button type="button" class="arttir">+</button>
+              </div>
             </div>
             <div>
-              <label for="boy">Boy (cm)</label>
-              <input type="number" id="boy" placeholder="Örn: 175" required />
+              <label for="boy">Boyunuz (cm)</label>
+              <div class="input-step">
+                <button type="button" class="azalt">−</button>
+                <input type="number" id="boy" value="175" min="120" max="220" />
+                <button type="button" class="arttir">+</button>
+              </div>
             </div>
           </div>
 
