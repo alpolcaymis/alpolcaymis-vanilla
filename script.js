@@ -33,8 +33,8 @@ genderButtons.forEach((btn) => {
     // 👇 Kilo ve boy inputlarını otomatik ayarla
     const cinsiyet = btn.dataset.cinsiyet;
     if (ortalamalar[cinsiyet]) {
-      document.getElementById("kilo").value = ortalamalar[cinsiyet].kilo;
-      document.getElementById("boy").value = ortalamalar[cinsiyet].boy;
+      kiloInput.value = ortalamalar[cinsiyet].kilo;
+      boyInput.value = ortalamalar[cinsiyet].boy;
     }
   });
 });
