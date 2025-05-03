@@ -18,19 +18,7 @@ const ortalamalar = {
   kadın: { kilo: 65, boy: 162 },
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  genderButtons.forEach((btn) => {
-    if (btn.dataset.cinsiyet === "erkek") {
-      btn.classList.add("selected");
-      genderInput.value = "erkek";
-    }
-  });
-  kiloInput.value = ortalamalar["erkek"].kilo;
-  boyInput.value = ortalamalar["erkek"].boy;
-
-  sayacButonlariniAktiflestir(); // input-step butonlarını etkinleştir
-});
-
+// Cinsiyet seçimi
 const genderButtons = document.querySelectorAll(".gender-button");
 const genderInput = document.getElementById("cinsiyet");
 const kiloInput = document.getElementById("kilo");
@@ -40,12 +28,14 @@ genderButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     genderButtons.forEach((b) => b.classList.remove("selected"));
     btn.classList.add("selected");
-    const secilen = btn.dataset.cinsiyet;
-    genderInput.value = secilen;
+    genderInput.value = btn.dataset.cinsiyet;
 
-    // Ortalama değerleri ata
-    kiloInput.value = ortalamalar[secilen].kilo;
-    boyInput.value = ortalamalar[secilen].boy;
+    // 👇 Kilo ve boy inputlarını otomatik ayarla
+    const cinsiyet = btn.dataset.cinsiyet;
+    if (ortalamalar[cinsiyet]) {
+      document.getElementById("kilo").value = ortalamalar[cinsiyet].kilo;
+      document.getElementById("boy").value = ortalamalar[cinsiyet].boy;
+    }
   });
 });
 
@@ -279,3 +269,16 @@ function sayacButonlariniAktiflestir() {
 
 // === Sayfa yüklenince 1 içki kutusu gelsin ===
 ickiEkleBtn.click();
+
+window.addEventListener("DOMContentLoaded", () => {
+  genderButtons.forEach((btn) => {
+    if (btn.dataset.cinsiyet === "erkek") {
+      btn.classList.add("selected");
+      genderInput.value = "erkek";
+    }
+  });
+  kiloInput.value = ortalamalar["erkek"].kilo;
+  boyInput.value = ortalamalar["erkek"].boy;
+
+  sayacButonlariniAktiflestir(); // input-step butonlarını etkinleştir
+});
