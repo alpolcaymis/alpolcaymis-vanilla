@@ -110,6 +110,12 @@ form.addEventListener("submit", function (e) {
     }
 
     const baslangicPromil = (safAlkolGram / (kanHacmiLitre * 1000)) * 100;
+
+    let promilRenkSinifi = "";
+    if (baslangicPromil <= 0.5) {
+      promilRenkSinifi = "promil-beyaz";
+    }
+
     const yakimOrani = cinsiyet === "erkek" ? 0.15 : 0.12;
     const kalanPromil = Math.max(
       baslangicPromil - saat * yakimOrani,
@@ -126,27 +132,68 @@ form.addEventListener("submit", function (e) {
 
     const sinif = promilSeviyeSinifi(kalanPromil);
     sonucBox.className = `result-box ${sinif} show`;
+
+    let durumSinifi = "";
+    let promilMesaj = "";
+    let durumSembol = "";
+
+    if (baslangicPromil <= 0.5) {
+      durumSinifi = "safe";
+      promilMesaj = "Testi Geçtiniz";
+      durumSembol = "✅";
+    } else if (baslangicPromil <= 1.0) {
+      durumSinifi = "warning";
+      promilMesaj = "Sınırın Üstündesiniz";
+      durumSembol = "⚠️";
+    } else {
+      durumSinifi = "danger";
+      promilMesaj = "Yasal Olarak Sürüşe Uygun Değilsiniz";
+      durumSembol = "❌";
+    }
+
     sonucBox.innerHTML = `
-    
-  <div class="promil-wrapper">
-    <div class="promil-label">Promil</div>
-    <div class="promil-deger">${baslangicPromil.toFixed(2)}</div>
+      
+       <div class="promil-info-bar ${durumSinifi}">
+       
+       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#dabf75" stroke-width="2" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="10" />
+  <line x1="12" y1="8" x2="12" y2="8" />
+  <line x1="12" y1="12" x2="12" y2="16" />
+</svg>
+
+    <span class="promil-baslik">${promilMesaj}</span>
+    <span class="promil-status-icon">${durumSembol}</span>
   </div>
 
-<p class="result-note">
-  * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta sürücüleri için yasal sınır <strong>0.00‰</strong>’dir.
-</p>
+      
 
-  <div class="ek-veriler-satir">
-  <span><strong>Kan Hacminiz (mL):</strong> ${(kanHacmiLitre * 1000).toFixed(
-    0
-  )}</span>
-  <span><strong>Alınan Alkol (g):</strong> ${safAlkolGram.toFixed(1)}</span>
-  </div>
-  Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} ‰<br><br>
-  <strong>Durum:</strong> ${yorum}<br><br>
-  <strong>${ayilmaMesaji}</strong>
-`;
+      <div class="promil-wrapper">
+        <div class="promil-label ${promilRenkSinifi}">Promil</div>
+<div class="promil-deger ${promilRenkSinifi}">${baslangicPromil.toFixed(
+      2
+    )}</div>
+      </div>
+
+      <p class="result-note">
+        * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta
+        sürücüleri için yasal sınır <strong>0.00%</strong>’dir.
+      </p>
+
+      <div class="ek-veriler-satir">
+        <span
+          ><strong>Kan Hacminiz (mL):</strong> ${(kanHacmiLitre * 1000).toFixed(
+            0
+          )}</span
+        >
+        <span><strong>Alınan Alkol (g):</strong> ${safAlkolGram.toFixed(
+          1
+        )}</span>
+      </div>
+
+      Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} %<br /><br />
+      <strong>Durum:</strong> ${yorum}<br /><br />
+      <strong>${ayilmaMesaji}</strong>
+      `;
 
     sonucBox.style.display = "block";
 
