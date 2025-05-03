@@ -1,35 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Unna:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* === GLOBAL RESET === */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
+/* === GLOBAL KORUMA === */
+input,
+select,
+textarea {
+  max-width: 100%;
   box-sizing: border-box;
 }
 
-/* === BODY === */
+/* === GENEL === */
 body {
   font-family: 'Unna', serif;
   background-color: #191f1f;
-  color: #e8e8dc;
-  padding: 20px;
   margin: 0;
-  border-radius: 12px;
-  background-image: url('img/celtic-frame.png');
-  background-repeat: repeat;
-  background-position: center;
-  background-size: 120px;
-  box-shadow: 0 0 0 8px #3a4d4d;
+  padding: 20px;
+  color: #e8e8dc;
 }
 
-/* === CONTAINER === */
 .container {
   max-width: 600px;
   margin: 0 auto;
-  padding: 24px;
   background: linear-gradient(to bottom, #253c3c, #1d4949);
+  padding: 24px;
   border-radius: 12px;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
 }
@@ -48,8 +40,6 @@ body {
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
-  animation: logoFadeZoom 0.8s ease-out forwards;
-  animation-delay: 0.3s;
 }
 
 .nav-links {
@@ -60,6 +50,8 @@ body {
   margin: 10px 0 0;
   padding: 0;
 }
+
+
 
 .nav-links a {
   text-decoration: none;
@@ -73,7 +65,11 @@ body {
 
 .nav-links a:hover {
   transform: scale(1.1);
-  color: #dabf75; /* Celtic gold tone */
+  color: #dabf75; /* Celtic altın tonu */
+}
+
+.nav-links a {
+  position: relative;
 }
 
 .nav-links a::after {
@@ -91,7 +87,8 @@ body {
   width: 100%;
 }
 
-/* === HEADINGS === */
+
+/* === BAŞLIKLAR === */
 h1, legend {
   font-family: 'Cormorant Garamond', serif;
   color: #dabf75;
@@ -107,6 +104,7 @@ legend {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 10px;
+  display: block;
 }
 
 /* === FIELDSET === */
@@ -129,7 +127,7 @@ label {
   display: block;
 }
 
-/* === INPUT, SELECT, TEXTAREA === */
+/* === INPUT & SELECT === */
 input,
 select,
 textarea {
@@ -145,7 +143,20 @@ textarea {
   width: 100%;
 }
 
-/* === BUTTONS === */
+/* === KİLO & BOY === */
+.kilo-boy-grup {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: nowrap;
+}
+
+.kilo-boy-grup > div {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+/* === BUTONLAR === */
 button {
   font-family: 'Unna', serif;
   margin-top: 20px;
@@ -182,7 +193,7 @@ button.icki-sil:hover {
   background: #a85d3a;
 }
 
-/* === INPUT STEP (PLUS / MINUS) === */
+/* === + / − === */
 .input-step {
   display: flex;
   align-items: center;
@@ -221,7 +232,7 @@ button.icki-sil:hover {
   background: #495d5d;
 }
 
-/* === DRINKS INPUT BLOCK === */
+/* === İÇKİ BLOĞU === */
 .icki-grubu {
   margin-top: 16px;
   padding: 10px;
@@ -230,9 +241,6 @@ button.icki-sil:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeSlideIn 0.4s ease forwards;
 }
 
 .icki-ust {
@@ -251,6 +259,7 @@ button.icki-sil:hover {
   background-color: #2f3e3e;
   color: #e8e8dc;
   font-weight: bold;
+  font-family: 'Unna', serif;
 }
 
 .icki-select-wrapper::after {
@@ -264,7 +273,33 @@ button.icki-sil:hover {
   color: #dabf75;
 }
 
-/* === GENDER SELECTION === */
+.icki-alt {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.icki-icon {
+  flex: 1 1 auto;
+  max-height: 160px;
+  max-width: calc(100% - 112px);
+  width: 100%;
+  object-fit: contain;
+  align-self: center;
+  transition: opacity 0.3s ease;
+}
+
+.icki-input-kolon {
+  width: 112px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* === CİNSİYET === */
 .gender-buttons {
   display: flex;
   gap: 10px;
@@ -280,7 +315,9 @@ button.icki-sil:hover {
   background: #2f3e3e;
   color: #e8e8dc;
   cursor: pointer;
+  margin: 0;
   font-weight: bold;
+  font-family: 'Unna', serif;
 }
 
 .gender-button.selected {
@@ -289,7 +326,7 @@ button.icki-sil:hover {
   color: #fff;
 }
 
-/* === RESULT BOX === */
+/* === SONUÇ === */
 .result-box {
   padding: 20px;
   border-radius: 10px;
@@ -299,6 +336,7 @@ button.icki-sil:hover {
   background: #2f3e3e;
   color: #dabf75;
   border: 1px solid #526a6a;
+  font-family: 'Unna', serif;
   transform: scale(0.95);
   opacity: 0;
   transition: all 0.3s ease-out;
@@ -307,10 +345,53 @@ button.icki-sil:hover {
 .result-box.show {
   transform: scale(1);
   opacity: 1;
-  animation: fadeSlideIn 0.5s ease forwards;
 }
 
-/* === SHARE BUTTON === */
+.result-safe {
+  background-color: #2e4633;
+  border-color: #4c7152;
+  color: #cfe7c5;
+}
+
+.result-warning {
+  background-color: #4f4421;
+  border-color: #9e8a3c;
+  color: #fff2c2;
+}
+
+.result-danger {
+  background-color: #4b2c2c;
+  border-color: #a14545;
+  color: #f8cccc;
+}
+
+.result-box .promil-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.result-box .promil-label {
+  font-size: 1.3rem;
+  color: #ffd700;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-bottom: 0.4rem;
+}
+
+.result-box .promil-deger {
+  font-family: 'Lato', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+  line-height: 1;
+}
+
+
+/* === PAYLAŞ === */
 #paylasBtn {
   margin-top: 15px;
   padding: 10px 16px;
@@ -320,13 +401,14 @@ button.icki-sil:hover {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  font-family: 'Unna', serif;
 }
 
 #paylasBtn:hover {
   background-color: #e4cc8d;
 }
 
-/* === MOBILE ADAPTATIONS === */
+/* === MOBİL === */
 @media (max-width: 600px) {
   .container {
     padding: 20px;
@@ -353,23 +435,18 @@ button.icki-sil:hover {
   .icki-input-kolon input {
     font-size: 0.95rem;
   }
-
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
 }
-
-/* === TABLE STYLING === */
+/* === TABLO TEMASI === */
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
+  font-family: 'Unna', serif;
   background-color: #1f2e2e;
   color: #f0f0d0;
   border: 1px solid #3c4f4f;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 th, td {
@@ -383,6 +460,7 @@ th {
   color: #dabf75;
   font-weight: bold;
   text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 td {
@@ -397,7 +475,196 @@ tr:hover {
   background-color: #344b4b;
 }
 
-/* === LOADING ANIMATION === */
+/* Küçük ekranlar için scroll */
+@media (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+/* === LİNK TASARIMI === */
+a {
+  color: #dabf75;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+  color: #fff0c2;
+  text-shadow: 0 0 6px rgba(218, 191, 117, 0.6);
+}
+
+/* === FOOTER === */
+.site-footer {
+  background-color: #1a2a2a;
+  border-top: 1px solid #3d5050;
+  padding: 20px 0;
+  margin-top: 40px;
+  color: #a8a88a;
+  font-family: 'Unna', serif;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.footer-links a {
+  color: #dabf75;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff0c2;
+}
+body {
+  font-family: 'Unna', serif;
+  background-color: #191f1f;
+  padding: 10px;
+  margin: 0;
+  color: #e8e8dc;
+  box-sizing: border-box;
+  border: 6px solid #3a4d4d; /* çerçeve */
+  border-radius: 12px;
+}
+body {
+  box-shadow: 0 0 0 8px #3a4d4d;
+  border-radius: 12px;
+}
+body {
+  font-family: 'Unna', serif;
+  background-color: #191f1f;
+  color: #e8e8dc;
+  padding: 20px;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 12px;
+
+  background-image: url('img/celtic-border.svg');
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 12px;
+}
+body {
+  font-family: 'Unna', serif;
+  background-color: #191f1f;
+  color: #e8e8dc;
+  padding: 20px;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 12px;
+
+  background-image: url('img/celtic-frame.png');
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 120px;
+}
+.container {
+  /* mevcut özelliklere ek olarak */
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+}
+textarea {
+  font-family: 'Unna', serif;
+  font-size: 1rem;
+  padding: 10px;
+  background-color: #2f3e3e;
+  color: #e8e8dc;
+  border: 1px solid #526a6a;
+  border-radius: 6px;
+  resize: vertical;
+}
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.result-box.show {
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.icki-grubu {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlideIn 0.4s ease forwards;
+}
+@keyframes logoFadeZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.nav-logo {
+  width: 60px;
+  height: auto;
+  opacity: 0;
+  animation: logoFadeZoom 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+}
+.nav-logo-wrapper {
+  display: inline-block;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+  animation: glow-border 1.2s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes glow-border {
+  0% {
+    box-shadow: 0 0 0px rgba(218, 191, 117, 0);
+    opacity: 0;
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(218, 191, 117, 0.7);
+    opacity: 1;
+  }
+}
+.nav-logo-wrapper {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 50%;
+  position: relative;
+  overflow: visible; /* önemli! */
+  animation: glow-border 1.2s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.pop-out {
+  transform: translateY(-15%) scale(1.1);
+  z-index: 2;
+  position: relative;
+  transition: transform 0.4s ease;
+}
 #loadingOverlay {
   position: fixed;
   top: 0;
@@ -439,3 +706,4 @@ tr:hover {
     opacity: 0.7;
   }
 }
+
