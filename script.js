@@ -355,6 +355,7 @@ function sayacButonlariniAktiflestir() {
 // === Sayfa yüklenince 1 içki kutusu gelsin ===
 ickiEkleBtn.click();
 
+// SSS KISMI İÇİN GEREKLİ SONRA AKTİF EDERİM
 // document.querySelectorAll(".faq-question").forEach((btn) => {
 //   btn.addEventListener("click", () => {
 //     const answer = btn.nextElementSibling;
