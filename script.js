@@ -355,6 +355,13 @@ function sayacButonlariniAktiflestir() {
 // === Sayfa yüklenince 1 içki kutusu gelsin ===
 ickiEkleBtn.click();
 
+// document.querySelectorAll(".faq-question").forEach((btn) => {
+//   btn.addEventListener("click", () => {
+//     const answer = btn.nextElementSibling;
+//     answer.style.display = answer.style.display === "block" ? "none" : "block";
+//   });
+// });
+
 window.addEventListener("DOMContentLoaded", () => {
   genderButtons.forEach((btn) => {
     if (btn.dataset.cinsiyet === "erkek") {
