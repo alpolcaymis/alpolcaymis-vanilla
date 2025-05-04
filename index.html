@@ -101,6 +101,7 @@
         </fieldset>
 
         <!-- Süre -->
+
         <fieldset style="margin-bottom: 0px">
           <legend
             style="
@@ -120,13 +121,18 @@
             />
           </legend>
           <label for="saat">İlk Alkolü kaç saat önce içtin?</label>
-          <input
-            type="number"
-            id="saat"
-            value="0"
-            placeholder="Örn: 2"
-            required
-          />
+          <div class="input-step saat-step">
+            <button type="button" class="azalt">−</button>
+            <input
+              type="number"
+              id="saat"
+              class="saat-input"
+              value="0"
+              min="0"
+              step="0.5"
+            />
+            <button type="button" class="arttir">+</button>
+          </div>
         </fieldset>
 
         <button type="submit">Promil Hesapla</button>
@@ -234,41 +240,6 @@
           </p>
         </details>
       </section>
-
-      <!--  SONRA AKTİF EDERİM
-      <section id="faq" class="faq-section">
-        <h2>Sıkça Sorulan Sorular</h2>
-
-        <div class="faq-item">
-          <button class="faq-question">Promil nedir?</button>
-          <div class="faq-answer">
-            <p>
-              Promil, kandaki alkol yoğunluğunu ifade eden bir ölçü birimidir.
-              0.5‰, 1 litre kanda 0.5 gram alkol bulunduğu anlamına gelir.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">Yasal promil sınırı kaçtır?</button>
-          <div class="faq-answer">
-            <p>
-              Türkiye'de özel araçlar için 0.5 promil, ticari araçlar için ise
-              0.0 promildir. 0.5 üzeri sürücüler ceza alabilir.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">Sonuçlar ne kadar güvenilir?</button>
-          <div class="faq-answer">
-            <p>
-              Hesaplamalar bilimsel formüllere dayansa da gerçek sonuçlar birçok
-              faktöre göre değişir. Hukuki geçerliliği yoktur.
-            </p>
-          </div>
-        </div>
-      </section> -->
 
       <p style="text-align: center; margin-top: 30px">
         📩 Geri bildirim için <a href="contact.html">İletişim</a> sayfasına

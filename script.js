@@ -323,7 +323,6 @@ function resimleriGuncelle() {
   });
 }
 
-// === Sayaç + / − ===
 function sayacButonlariniAktiflestir() {
   document.querySelectorAll(".input-step").forEach((wrapper) => {
     const input = wrapper.querySelector("input");
@@ -335,7 +334,9 @@ function sayacButonlariniAktiflestir() {
       let step = 1;
 
       if (input.classList.contains("icki-hacim")) step = 10;
-      if (input.classList.contains("icki-alkol")) step = 2.5;
+      if (input.classList.contains("icki-alkol")) step = 0.5;
+      // saat için step = 1 zaten default ama istersen belirt:
+      if (input.classList.contains("saat-input")) step = 0.5;
 
       input.value = Math.max(val - step, input.min ? parseFloat(input.min) : 0);
     };
@@ -345,23 +346,15 @@ function sayacButonlariniAktiflestir() {
       let step = 1;
 
       if (input.classList.contains("icki-hacim")) step = 10;
-      if (input.classList.contains("icki-alkol")) step = 2.5;
+      if (input.classList.contains("icki-alkol")) step = 0.5;
+      if (input.classList.contains("saat-input")) step = 0.5;
 
       input.value = val + step;
     };
   });
 }
-
 // === Sayfa yüklenince 1 içki kutusu gelsin ===
 ickiEkleBtn.click();
-
-// SSS KISMI İÇİN GEREKLİ SONRA AKTİF EDERİM
-// document.querySelectorAll(".faq-question").forEach((btn) => {
-//   btn.addEventListener("click", () => {
-//     const answer = btn.nextElementSibling;
-//     answer.style.display = answer.style.display === "block" ? "none" : "block";
-//   });
-// });
 
 window.addEventListener("DOMContentLoaded", () => {
   genderButtons.forEach((btn) => {

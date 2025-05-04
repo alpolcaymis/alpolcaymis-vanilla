@@ -273,6 +273,9 @@ button.icki-sil:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlideIn 0.4s ease forwards;
 }
 
 .icki-ust {
@@ -379,27 +382,6 @@ button.icki-sil:hover {
   background-color: #8c4a2f;
   border-color: #8c4a2f;
   color: #fff;
-}
-
-/* === saat === */
-
-#saat {
-  max-width: 240px;
-  margin: 0 auto;
-  display: block;
-  padding: 5px 10px !important;
-}
-label[for="saat"] {
-  display: block;
-  text-align: center;
-  margin-bottom: 4px;
-  font-weight: bold;
-}
-.legend-icon {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-  filter: brightness(1.1) contrast(1.2);
 }
 
 /* === SONUÇ KUTUSU TEMEL === */
@@ -554,7 +536,24 @@ label[for="saat"] {
   font-style: italic;
   text-align: center;
 }
+/* === saat === */
 
+.saat-step {
+  max-width: 160px;
+  margin: 0 auto;
+}
+label[for="saat"] {
+  display: block;
+  text-align: center;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+.legend-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  filter: brightness(1.1) contrast(1.2);
+}
 
 /* === Promil Hesapla BUTONU === */
 button[type="submit"] {
@@ -598,8 +597,6 @@ button[type="submit"] {
     background-position: 200% 200%;
   }
 }
-
-
 
 /* === PAYLAŞ BUTONU === */
 #paylasBtn {
@@ -756,54 +753,6 @@ details{
   margin-bottom: 4px;
 }
 
-/* === SIKÇA SORULAN SORULAR === DAHA SONRA EKLERİM */ 
-/* .faq-section {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 0 16px;
-}
-
-.faq-section h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  color: #dabf75;
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.faq-item {
-  margin-bottom: 16px;
-  border: 1px solid #4b5c5c;
-  border-radius: 8px;
-  background-color: #1f2e2e;
-  overflow: hidden;
-}
-
-.faq-question {
-  width: 100%;
-  text-align: left;
-  font-weight: bold;
-  font-family: 'Unna', serif;
-  font-size: 1rem;
-  padding: 14px;
-  background: none;
-  border: none;
-  color: #e8e8dc;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.faq-question:hover {
-  background-color: #2a3c3c;
-}
-
-.faq-answer {
-  display: none;
-  padding: 0 14px 14px;
-  font-size: 0.95rem;
-  color: #c0c0a0;
-} */
-
 
 /* === ANİMASYONLAR === */
 @keyframes fadeSlideIn {
@@ -821,11 +770,7 @@ details{
   animation: fadeSlideIn 0.5s ease forwards;
 }
 
-.icki-grubu {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeSlideIn 0.4s ease forwards;
-}
+
 
 @keyframes logoFadeZoom {
   0% {
