@@ -175,8 +175,16 @@ form.addEventListener("submit", function (e) {
     // === Sonuç Kutusunu Oluştur ===
     sonucBox.innerHTML = `
       <div class="promil-info-bar ${durumSinifi}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-          <path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16h-1v-6h2v5h-1v1zm0-7h-1V7h2v4z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="white"
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16h-1v-6h2v5h-1v1zm0-7h-1V7h2v4z"
+          />
         </svg>
         <span class="promil-baslik">${promilMesaj}</span>
         <span class="promil-status-icon">${durumSembol}</span>
@@ -190,20 +198,28 @@ form.addEventListener("submit", function (e) {
       <div class="promil-ek-info">${ekBilgi}</div>
 
       <p class="result-note">
-        * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta sürücüleri için yasal sınır <strong>0.00%</strong>’dir.
+        * Ticari araç sürücüleri için yasal sınır <strong>0.20%</strong>’dir. 
+      * 2 yılını doldurmamış aday sürücüler için yasal sınır <strong>0.20%</strong>’dir.
+      <br/>
       </p>
 
       <div class="ek-veriler-satir">
-        <span><strong>Kan Hacminiz:</strong> ${(kanHacmiLitre * 1000).toFixed(
-          0
-        )} mL</span>
+        <span
+          ><strong>Kan Hacminiz:</strong> ${(kanHacmiLitre * 1000).toFixed(0)}
+          mL</span
+        >
         <span><strong>Alınan Alkol:</strong> ${safAlkolGram.toFixed(1)} g</span>
       </div>
 
-      <strong>Başlangıç Promil:</strong> ${baslangicPromil.toFixed(2)} ‰<br><br>
-      <strong>Durum:</strong> ${yorum}<br><br>
+      <strong>Başlangıç Promil:</strong> ${baslangicPromil.toFixed(2)} ‰
+      <br />
+      <br />
+      <strong>Durum:</strong> ${yorum}
       <p class="yasal-mesaj">${yasalMesaj}</p>
       ${cezaBilgisi}
+      <p class="minik-yasal">
+        "Bu ölçümler veri bazlı tahminlere dayanmaktadır ve herhangi bir kesinlik
+        teşkil etmemektedir. Buradaki verilere göre hareket ederek, kendinizin ve etrafınızdakilerin can güvenliğini tehlikeye atmayınız❗"</p>      
     `;
 
     sonucBox.style.display = "block";

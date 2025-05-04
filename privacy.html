@@ -85,3 +85,48 @@
     </footer>
   </body>
 </html>
+<div class="promil-info-bar ${durumSinifi}">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="white"
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16h-1v-6h2v5h-1v1zm0-7h-1V7h2v4z"
+    />
+  </svg>
+  <span class="promil-baslik">${promilMesaj}</span>
+  <span class="promil-status-icon">${durumSembol}</span>
+</div>
+
+<div class="promil-wrapper">
+  <div class="promil-label ${promilRenkSinifi}">Promil</div>
+  <div class="promil-deger ${promilRenkSinifi}">${kalanPromil}</div>
+</div>
+
+<div class="promil-ek-info">${ekBilgi}</div>
+
+<p class="result-note">
+  * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta
+  sürücüleri için yasal sınır <strong>0.00%</strong>’dir.
+</p>
+
+<div class="ek-veriler-satir">
+  <span
+    ><strong>Kan Hacminiz:</strong> ${(kanHacmiLitre * 1000).toFixed( 0 )}
+    mL</span
+  >
+  <span><strong>Alınan Alkol:</strong> ${safAlkolGram.toFixed(1)} g</span>
+</div>
+
+<strong>Başlangıç Promil:</strong> ${baslangicPromil.toFixed(2)} ‰<br /><br />
+<strong>Durum:</strong> ${yorum}<br /><br />
+<p class="yasal-mesaj">${yasalMesaj}</p>
+${cezaBilgisi}
+<p class="minik-yasal-uyari">
+  "Bu ölçümler veri bazlı tahminlere dayanmaktadır ve herhangi bir kesinlik
+  teşkil etmemektedir. Buradaki verilere göre hareket ederek, kendinizin ve
+  etrafınızdakilerin can güvenliğini tehlikeye atmayınız ❗
+</p>
