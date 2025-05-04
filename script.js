@@ -123,43 +123,74 @@ form.addEventListener("submit", function (e) {
     ).toFixed(2);
     const yorum = promilYorum(kalanPromil);
 
-    const kalanSaat =
-      kalanPromil > 0 ? (kalanPromil / yakimOrani).toFixed(1) : 0;
-    const ayilmaMesaji =
-      kalanPromil > 0
-        ? `Tahmini olarak yaklaşık ${kalanSaat} saat sonra ayılmaya başlarsınız.`
-        : `Promil seviyeniz sıfıra çok yakın, ayık durumdasınız.`;
+    // Yasal sınır olan 0.50 promil altına ne zaman düşer?
+    let yasalSinirSuresi = 0;
+    if (baslangicPromil > 0.5) {
+      yasalSinirSuresi = ((baslangicPromil - 0.5) / yakimOrani).toFixed(1);
+    }
+
+    let yasalMesaj = "";
+    if (baslangicPromil <= 0.5) {
+      yasalMesaj = "Promil seviyeniz yasal sınırın altında.";
+    } else {
+      yasalMesaj = `Promil seviyeniz şu an yasal sınırın üstünde. Yaklaşık <strong>${yasalSinirSuresi} saat</strong> sonra 0.50 promil altına inecektir.`;
+    }
 
     const sinif = promilSeviyeSinifi(kalanPromil);
     sonucBox.className = `result-box ${sinif} show`;
+    const kalanPromilFloat = parseFloat(kalanPromil);
 
     let durumSinifi = "";
     let promilMesaj = "";
     let durumSembol = "";
+    let ekBilgi = "";
 
-    if (baslangicPromil <= 0.5) {
+    let cezaBilgisi = "";
+
+    if (baslangicPromil > 0.5 && baslangicPromil <= 1.0) {
+      cezaBilgisi = `
+        <div class="ek-ceza-bilgi">
+          🚓 <strong>2025 Bilgilendirme:</strong> 0.51 – 1.00 promil arası: <strong>9.268 TL</strong> ceza ve <strong>6 ay</strong> ehliyete el koyma uygulanır.
+        </div>`;
+    } else if (baslangicPromil > 1.0) {
+      cezaBilgisi = `
+        <div class="ek-ceza-bilgi">
+          ❌ <strong>2025 Uyarısı:</strong> 1.00 promil üzeri: Adli işlem, <strong>2 yıla kadar</strong> ehliyete el koyma ve ağır yaptırımlar (TCK 179) uygulanır.
+        </div>`;
+    }
+
+    if (kalanPromilFloat <= 0.5) {
       durumSinifi = "safe";
-      promilMesaj = "Testi Geçtiniz";
+      promilMesaj = "Testi Geçtiniz. Trafiğe çıkabilirsiniz";
       durumSembol = "✅";
-    } else if (baslangicPromil <= 1.0) {
+      ekBilgi =
+        "2918 sayılı Karayolları Trafik Kanunu’na göre, özel araç sürücüleri için 0.50 promil ve altı değerler yasal kabul edilir.";
+    } else if (kalanPromilFloat <= 1.0) {
       durumSinifi = "warning";
-      promilMesaj = "Sınırın Üstündesiniz";
+      promilMesaj = "Ceza yersin! 0.50 promil Yasal sınırın üstündesiniz";
       durumSembol = "⚠️";
+      ekBilgi =
+        "Yasal sınır olan 0.50 promil aşılmıştır. Trafik çevirmesinde alkolmetreye üflenmesi halinde <strong>idari para cezası ve ehliyetin geçici olarak alınması</strong> riski doğar.";
     } else {
       durumSinifi = "danger";
-      promilMesaj = "Yasal Olarak Sürüşe Uygun Değilsiniz";
+      promilMesaj = "Kesin Ceza Yersin! Arabadan uzak durun!";
       durumSembol = "❌";
+      ekBilgi =
+        "1.00 promil üstü durumlar Türk Ceza Kanunu ve Karayolları Trafik Yönetmeliği uyarınca <strong>alkollü araç kullanmakla birlikte trafik güvenliğini tehlikeye sokma</strong> suçlarını oluşturabilir.";
     }
 
     sonucBox.innerHTML = `
       
        <div class="promil-info-bar ${durumSinifi}">
-       
-       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#dabf75" stroke-width="2" viewBox="0 0 24 24">
-  <circle cx="12" cy="12" r="10" />
-  <line x1="12" y1="8" x2="12" y2="8" />
-  <line x1="12" y1="12" x2="12" y2="16" />
-</svg>
+         <svg
+            xmlns="http://www.w3.org/2000/svg"
+           width="20" height="20" viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16h-1v-6h2v5h-1v1zm0-7h-1V7h2v4z"
+            />
+          </svg>      
 
     <span class="promil-baslik">${promilMesaj}</span>
     <span class="promil-status-icon">${durumSembol}</span>
@@ -169,9 +200,11 @@ form.addEventListener("submit", function (e) {
 
       <div class="promil-wrapper">
         <div class="promil-label ${promilRenkSinifi}">Promil</div>
-<div class="promil-deger ${promilRenkSinifi}">${baslangicPromil.toFixed(
-      2
-    )}</div>
+        <div class="promil-deger ${promilRenkSinifi}">${kalanPromil}</div>
+    </div>
+    <div class="promil-ek-info">${ekBilgi}</div>
+
+
       </div>
 
       <p class="result-note">
@@ -181,18 +214,21 @@ form.addEventListener("submit", function (e) {
 
       <div class="ek-veriler-satir">
         <span
-          ><strong>Kan Hacminiz (mL):</strong> ${(kanHacmiLitre * 1000).toFixed(
-            0
-          )}</span
+          ><strong>Kan Hacminiz:</strong> ${
+            (kanHacmiLitre * 1000).toFixed(0) + " mL"
+          }</span
         >
-        <span><strong>Alınan Alkol (g):</strong> ${safAlkolGram.toFixed(
-          1
-        )}</span>
+        <span><strong>Alınan Alkol:</strong> ${
+          safAlkolGram.toFixed(1) + " g"
+        }</span>
       </div>
 
-      Geçen ${saat} saat sonra tahmini promil: ${kalanPromil} %<br /><br />
+      <strong>Başlangıç Promil:</strong> ${baslangicPromil.toFixed(
+        2
+      )} ‰<br /><br />
       <strong>Durum:</strong> ${yorum}<br /><br />
-      <strong>${ayilmaMesaji}</strong>
+     <p class="yasal-mesaj">${yasalMesaj}</p>
+     ${cezaBilgisi}
       `;
 
     sonucBox.style.display = "block";
@@ -334,9 +370,8 @@ function sayacButonlariniAktiflestir() {
       let step = 1;
 
       if (input.classList.contains("icki-hacim")) step = 10;
-      if (input.classList.contains("icki-alkol")) step = 0.5;
-      // saat için step = 1 zaten default ama istersen belirt:
-      if (input.classList.contains("saat-input")) step = 0.5;
+      else if (input.classList.contains("icki-alkol")) step = 2.5;
+      else if (input.classList.contains("saat-input")) step = 0.5;
 
       input.value = Math.max(val - step, input.min ? parseFloat(input.min) : 0);
     };
@@ -346,13 +381,14 @@ function sayacButonlariniAktiflestir() {
       let step = 1;
 
       if (input.classList.contains("icki-hacim")) step = 10;
-      if (input.classList.contains("icki-alkol")) step = 0.5;
-      if (input.classList.contains("saat-input")) step = 0.5;
+      else if (input.classList.contains("icki-alkol")) step = 2.5;
+      else if (input.classList.contains("saat-input")) step = 0.5;
 
       input.value = val + step;
     };
   });
 }
+
 // === Sayfa yüklenince 1 içki kutusu gelsin ===
 ickiEkleBtn.click();
 
