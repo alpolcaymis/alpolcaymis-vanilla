@@ -13,7 +13,7 @@ const alkolOranlari = {
   tekila: 0.38,
   jager: 0.35,
   tekila_shot: 0.4,
-  cin_tonic: 0.12,
+  cin_tonic: 0.4,
   whisky_sour: 0.43,
   raki_double: 0.45,
 };
@@ -24,13 +24,13 @@ const varsayilanHacimler = {
   rakı: 40,
   raki_double: 80,
   votka: 40,
-  viski: 50,
+  viski: 40,
   cin: 40,
   tekila: 40,
   jager: 40,
   tekila_shot: 40,
-  cin_tonic: 40,
-  whisky_sour: 120,
+  cin_tonic: 50,
+  whisky_sour: 50,
 };
 
 // Cinsiyet seçimi
