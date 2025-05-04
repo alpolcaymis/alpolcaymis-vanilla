@@ -72,25 +72,26 @@ const sonucBox = document.getElementById("sonuc");
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // Animasyonu başlat
+  // === Yükleme Animasyonu Başlat ===
   document.getElementById("loadingOverlay").classList.add("show");
 
-  // Animasyon süresi içinde hesaplamayı geciktir
+  // === Hesaplama Gecikmeli Başlat ===
   setTimeout(() => {
     document.getElementById("loadingOverlay").classList.remove("show");
 
-    // Buradan sonrası hesaplama
     if (!genderInput.value) {
       alert("Lütfen cinsiyet seçin.");
       return;
     }
 
+    // === Giriş Değerlerini Al ===
     const kilo = parseFloat(document.getElementById("kilo").value);
     const boyCm = parseFloat(document.getElementById("boy").value);
     const boyM = boyCm / 100;
     const cinsiyet = genderInput.value;
     const saat = parseFloat(document.getElementById("saat").value);
 
+    // === Alınan Alkol Miktarını Hesapla ===
     const ickiGruplari = document.querySelectorAll(".icki-grubu");
     let safAlkolGram = 0;
 
@@ -102,6 +103,7 @@ form.addEventListener("submit", function (e) {
       safAlkolGram += adet * hacim * oran * 0.789;
     });
 
+    // === Kan Hacmini Hesapla (Nadler formülü) ===
     let kanHacmiLitre = 0;
     if (cinsiyet === "erkek") {
       kanHacmiLitre = 0.3669 * Math.pow(boyM, 3) + 0.03219 * kilo + 0.6041;
@@ -109,55 +111,44 @@ form.addEventListener("submit", function (e) {
       kanHacmiLitre = 0.3561 * Math.pow(boyM, 3) + 0.03308 * kilo + 0.1833;
     }
 
+    // === Başlangıç Promili Hesapla ===
     const baslangicPromil = (safAlkolGram / (kanHacmiLitre * 1000)) * 100;
 
+    // === Promil Rengi Belirle ===
     let promilRenkSinifi = "";
     if (baslangicPromil <= 0.5) {
       promilRenkSinifi = "promil-beyaz";
     }
 
+    // === Kalan Promil Hesapla ===
     const yakimOrani = cinsiyet === "erkek" ? 0.15 : 0.12;
     const kalanPromil = Math.max(
       baslangicPromil - saat * yakimOrani,
       0
     ).toFixed(2);
-    const yorum = promilYorum(kalanPromil);
-
-    // Yasal sınır olan 0.50 promil altına ne zaman düşer?
-    let yasalSinirSuresi = 0;
-    if (baslangicPromil > 0.5) {
-      yasalSinirSuresi = ((baslangicPromil - 0.5) / yakimOrani).toFixed(1);
-    }
-
-    let yasalMesaj = "";
-    if (baslangicPromil <= 0.5) {
-      yasalMesaj = "Promil seviyeniz yasal sınırın altında.";
-    } else {
-      yasalMesaj = `Promil seviyeniz şu an yasal sınırın üstünde. Yaklaşık <strong>${yasalSinirSuresi} saat</strong> sonra 0.50 promil altına inecektir.`;
-    }
-
-    const sinif = promilSeviyeSinifi(kalanPromil);
-    sonucBox.className = `result-box ${sinif} show`;
     const kalanPromilFloat = parseFloat(kalanPromil);
 
+    // === Promil Yorum ve Görsel Sınıf ===
+    const yorum = promilYorum(kalanPromil);
+    const sinif = promilSeviyeSinifi(kalanPromil);
+    sonucBox.className = `result-box ${sinif} show`;
+
+    // === Yasal Sınır Süresi Hesabı ===
+    let yasalSinirSuresi = "";
+    let yasalMesaj = "";
+    if (baslangicPromil > 0.5) {
+      yasalSinirSuresi = ((baslangicPromil - 0.5) / yakimOrani).toFixed(1);
+      yasalMesaj = `Promil seviyeniz şu an yasal sınırın üstünde. Yaklaşık <strong>${yasalSinirSuresi} saat</strong> sonra 0.50 promil altına inecektir.`;
+    } else {
+      yasalMesaj = "Promil seviyeniz yasal sınırın altında.";
+    }
+
+    // === Promil Bilgisi Mesajı ve Sembol ===
     let durumSinifi = "";
     let promilMesaj = "";
     let durumSembol = "";
     let ekBilgi = "";
-
     let cezaBilgisi = "";
-
-    if (baslangicPromil > 0.5 && baslangicPromil <= 1.0) {
-      cezaBilgisi = `
-        <div class="ek-ceza-bilgi">
-          🚓 <strong>2025 Bilgilendirme:</strong> 0.51 – 1.00 promil arası: <strong>9.268 TL</strong> ceza ve <strong>6 ay</strong> ehliyete el koyma uygulanır.
-        </div>`;
-    } else if (baslangicPromil > 1.0) {
-      cezaBilgisi = `
-        <div class="ek-ceza-bilgi">
-          ❌ <strong>2025 Uyarısı:</strong> 1.00 promil üzeri: Adli işlem, <strong>2 yıla kadar</strong> ehliyete el koyma ve ağır yaptırımlar (TCK 179) uygulanır.
-        </div>`;
-    }
 
     if (kalanPromilFloat <= 0.5) {
       durumSinifi = "safe";
@@ -170,72 +161,55 @@ form.addEventListener("submit", function (e) {
       promilMesaj = "Ceza yersin! 0.50 promil Yasal sınırın üstündesiniz";
       durumSembol = "⚠️";
       ekBilgi =
-        "Yasal sınır olan 0.50 promil aşılmıştır. Trafik çevirmesinde alkolmetreye üflenmesi halinde <strong>idari para cezası ve ehliyetin geçici olarak alınması</strong> riski doğar.";
+        "Yasal sınır olan 0.50 promil aşılmıştır. Trafik çevirmesinde alkolmetreye üflenmesi halinde idari para cezası ve ehliyetin geçici olarak alınması riski doğar.";
+      cezaBilgisi = `<div class="ek-ceza-bilgi">🚓 <strong>2025 Bilgilendirme:</strong> 0.51 – 1.00 promil arası: <strong>9.268 TL</strong> ceza ve <strong>6 ay</strong> ehliyete el koyma uygulanır.</div>`;
     } else {
       durumSinifi = "danger";
       promilMesaj = "Kesin Ceza Yersin! Arabadan uzak durun!";
       durumSembol = "❌";
       ekBilgi =
-        "1.00 promil üstü durumlar Türk Ceza Kanunu ve Karayolları Trafik Yönetmeliği uyarınca <strong>alkollü araç kullanmakla birlikte trafik güvenliğini tehlikeye sokma</strong> suçlarını oluşturabilir.";
+        "1.00 promil üstü durumlar Türk Ceza Kanunu ve Karayolları Trafik Yönetmeliği uyarınca alkollü araç kullanmakla birlikte trafik güvenliğini tehlikeye sokma suçlarını oluşturabilir.";
+      cezaBilgisi = `<div class="ek-ceza-bilgi">❌ <strong>2025 Uyarısı:</strong> 1.00 promil üzeri: Adli işlem, <strong>2 yıla kadar</strong> ehliyete el koyma ve ağır yaptırımlar (TCK 179) uygulanır.</div>`;
     }
 
+    // === Sonuç Kutusunu Oluştur ===
     sonucBox.innerHTML = `
-      
-       <div class="promil-info-bar ${durumSinifi}">
-         <svg
-            xmlns="http://www.w3.org/2000/svg"
-           width="20" height="20" viewBox="0 0 24 24"
-          >
-            <path
-              fill="white"
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16h-1v-6h2v5h-1v1zm0-7h-1V7h2v4z"
-            />
-          </svg>      
-
-    <span class="promil-baslik">${promilMesaj}</span>
-    <span class="promil-status-icon">${durumSembol}</span>
-  </div>
-
-      
+      <div class="promil-info-bar ${durumSinifi}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+          <path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16h-1v-6h2v5h-1v1zm0-7h-1V7h2v4z" />
+        </svg>
+        <span class="promil-baslik">${promilMesaj}</span>
+        <span class="promil-status-icon">${durumSembol}</span>
+      </div>
 
       <div class="promil-wrapper">
         <div class="promil-label ${promilRenkSinifi}">Promil</div>
         <div class="promil-deger ${promilRenkSinifi}">${kalanPromil}</div>
-    </div>
-    <div class="promil-ek-info">${ekBilgi}</div>
-
-
       </div>
 
+      <div class="promil-ek-info">${ekBilgi}</div>
+
       <p class="result-note">
-        * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta
-        sürücüleri için yasal sınır <strong>0.00%</strong>’dir.
+        * Bu hesaplama özel araç kullanıcıları içindir. Ticari araç ve ağır vasıta sürücüleri için yasal sınır <strong>0.00%</strong>’dir.
       </p>
 
       <div class="ek-veriler-satir">
-        <span
-          ><strong>Kan Hacminiz:</strong> ${
-            (kanHacmiLitre * 1000).toFixed(0) + " mL"
-          }</span
-        >
-        <span><strong>Alınan Alkol:</strong> ${
-          safAlkolGram.toFixed(1) + " g"
-        }</span>
+        <span><strong>Kan Hacminiz:</strong> ${(kanHacmiLitre * 1000).toFixed(
+          0
+        )} mL</span>
+        <span><strong>Alınan Alkol:</strong> ${safAlkolGram.toFixed(1)} g</span>
       </div>
 
-      <strong>Başlangıç Promil:</strong> ${baslangicPromil.toFixed(
-        2
-      )} ‰<br /><br />
-      <strong>Durum:</strong> ${yorum}<br /><br />
-     <p class="yasal-mesaj">${yasalMesaj}</p>
-     ${cezaBilgisi}
-      `;
+      <strong>Başlangıç Promil:</strong> ${baslangicPromil.toFixed(2)} ‰<br><br>
+      <strong>Durum:</strong> ${yorum}<br><br>
+      <p class="yasal-mesaj">${yasalMesaj}</p>
+      ${cezaBilgisi}
+    `;
 
     sonucBox.style.display = "block";
 
-    // Ekranı otomatik kaydır
+    // === Otomatik Kaydır ve Paylaş ===
     document.getElementById("sonuc").scrollIntoView({ behavior: "smooth" });
-
     document.getElementById("paylasKutu").style.display = "block";
     document.getElementById("paylasBtn").onclick = () => {
       const text = `Benim tahmini promilim: ${kalanPromil} ‰ — ${yorum}`;
@@ -245,7 +219,7 @@ form.addEventListener("submit", function (e) {
       )}&url=${encodeURIComponent(url)}`;
       window.open(tweetUrl, "_blank");
     };
-  }, 1200); // 1200ms bekletiyoruz
+  }, 1200);
 });
 
 // === İçki Ekle ===
