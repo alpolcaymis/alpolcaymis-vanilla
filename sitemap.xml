@@ -49,6 +49,37 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Yeni eklenen blog sayfaları -->
+  <url>
+    <loc>https://promilhesapla.com/blog/1-bira-kac-promil.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://promilhesapla.com/blog/hangi-icki-ne-kadar-promil-yapar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://promilhesapla.com/blog/promil-dusurme-yontemleri.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://promilhesapla.com/blog/alkollu-arac-cezalari-2025.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://promilhesapla.com/blog/alkol-ve-saglik-dogru-bilinen-yanlislar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://promilhesapla.com/blog/index.html</loc>
     <changefreq>weekly</changefreq>
