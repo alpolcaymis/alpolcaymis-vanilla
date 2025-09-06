@@ -226,15 +226,6 @@ form.addEventListener("submit", function (e) {
 
     // === Otomatik Kaydır ve Paylaş ===
     document.getElementById("sonuc").scrollIntoView({ behavior: "smooth" });
-    document.getElementById("paylasKutu").style.display = "block";
-    document.getElementById("paylasBtn").onclick = () => {
-      const text = `Benim tahmini promilim: ${kalanPromil} ‰ — ${yorum}`;
-      const url = "https://promilhesapla.com";
-      const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        text
-      )}&url=${encodeURIComponent(url)}`;
-      window.open(tweetUrl, "_blank");
-    };
   }, 1200);
 });
 
