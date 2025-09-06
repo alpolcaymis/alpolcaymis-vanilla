@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;800&display=swap');
+
+/* ====== Marquee (üst bant) – sorunsuz sonsuz akış ====== */
+.marquee{
+  /* Boyutlar ve hız */
+  --height: 36px;      /* kısa bant */
+  --gap: 20px;         /* öğeler arası boşluk */
+  --speed-pps: 80;     /* piksel/sn - süre JS’te hesaplanır */
+
+  position: sticky;    /* sabit istersen fixed yap */
+  top: 0;
+  z-index: 9999;
+  height: var(--height);
+  overflow: hidden;            /* taşma kapalı (gölge vs. olsaydı da keser) */
+
+  /* Renk/Tipografi */
+  background: #000;            /* siyah */
+  color: #fff;                 /* varsayılan metin */
+  border-bottom: 1px solid rgba(255,255,255,.12);
+
+  font-family: "Handjet", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: var(--height);
+  letter-spacing: 0.8px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Kaydırma rayı */
+.marquee__inner{
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  animation: marquee var(--duration, 30s) linear infinite;
+  transform: translate3d(0,0,0);
+}
+
+/* Tek “set” – mesaj blokları */
+.marquee__set{
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding-inline: var(--gap);
+  padding-block: 0;
+}
+
+/* Mesaj öğeleri */
+.marquee__set > *{
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  line-height: var(--height);
+}
+
+/* Hover’da durdur (opsiyonel) */
+.marquee:hover .marquee__inner{
+  animation-play-state: paused;
+}
+
+/* Hareket azaltma tercihi */
+@media (prefers-reduced-motion: reduce){
+  .marquee__inner{ animation: none; }
+}
+
+/* JS --cycle (px) hesaplıyor */
+@keyframes marquee{
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(calc(var(--cycle) * -1px), 0, 0); }
+}
+
+/* ====== NEON RENK PALETİ (GLOW YOK) ======
+   Sadece rakamlar (.num) renklenecek; parıltı kapalı */
+.marquee--neon .marquee__set > * .num{
+  color: var(--c, #39FF14);
+  font-weight: 800;        /* rakamları biraz daha vurgula */
+  /* text-shadow: none;  <-- parlamayı kaldırdık */
+}
+
+/* 8’li parlak renk paleti – öğe sırasına göre */
+.marquee--neon .marquee__set > *:nth-child(8n + 1){ --c: #39FF14; } /* neon yeşil */
+.marquee--neon .marquee__set > *:nth-child(8n + 2){ --c: #00F3FF; } /* camgöbeği */
+.marquee--neon .marquee__set > *:nth-child(8n + 3){ --c: #FF1AFF; } /* magenta */
+.marquee--neon .marquee__set > *:nth-child(8n + 4){ --c: #FFD300; } /* neon sarı */
+.marquee--neon .marquee__set > *:nth-child(8n + 5){ --c: #FF6B00; } /* neon turuncu */
+.marquee--neon .marquee__set > *:nth-child(8n + 6){ --c: #7C4DFF; } /* elektrik moru */
+.marquee--neon .marquee__set > *:nth-child(8n + 7){ --c: #FF4DA6; } /* sıcak pembe */
+.marquee--neon .marquee__set > *:nth-child(8n + 8){ --c: #2979FF; } /* parlak mavi */
